@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Feature SiLA2Version="1.0" FeatureVersion="1.0" Originator="de.fau" Category="dispensing"
+         xmlns="http://www.sila-standard.org"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.sila-standard.org https://gitlab.com/SiLA2/sila_base/raw/master/schema/FeatureDefinition.xsd">
+    <Identifier>Ot2Controller</Identifier>
+    <DisplayName>OT-2 Controller</DisplayName>
+    <Description>A SiLA 2 complaint controller for an OT-2 Liquid Handler robot.</Description>
+    <Property>
+        <Identifier>Connection</Identifier>
+        <DisplayName>Connection</DisplayName>
+        <Description>Connection details to the remote OT-2.</Description>
+        <Observable>No</Observable>
+        <DataType>
+            <Basic>String</Basic>
+        </DataType>
+    </Property>
+    <Property>
+        <Identifier>InstalledProtocols</Identifier>
+        <DisplayName>Installed Protocols</DisplayName>
+        <Description>List of the available Protocols already installed on the OT-2.</Description>
+        <Observable>No</Observable>
+        <DataType>
+            <List>
+                <DataType>
+                    <Basic>String</Basic>
+                </DataType>
+            </List>
+        </DataType>
+    </Property>
+    <Command>
+        <Identifier>UploadProtocol</Identifier>
+        <DisplayName>Upload Protocol</DisplayName>
+        <Description>Uploads the given Protocol to the OT-2.</Description>
+        <Observable>No</Observable>
+        <Parameter>
+            <Identifier>ProtocolSourcePath</Identifier>
+            <DisplayName>Protocol Source Path</DisplayName>
+            <Description>The path to the Protocol to upload.</Description>
+            <DataType>
+                <Basic>String</Basic>
+            </DataType>
+        </Parameter>
+    </Command>
+    <Command>
+        <Identifier>RemoveProtocol</Identifier>
+        <DisplayName>Remove Protocol</DisplayName>
+        <Description>Removes the given Protocol to the OT-2.</Description>
+        <Observable>No</Observable>
+        <Parameter>
+            <Identifier>ProtocolFile</Identifier>
+            <DisplayName>Protocol File</DisplayName>
+            <Description>The file name of the Protocol to remove.</Description>
+            <DataType>
+                <Basic>String</Basic>
+            </DataType>
+        </Parameter>
+    </Command>
+    <Command>
+        <Identifier>RunProtocol</Identifier>
+        <DisplayName>Run Protocol</DisplayName>
+        <Description>Runs the given Protocol on the OT-2.</Description>
+        <Observable>No</Observable>
+        <Parameter>
+            <Identifier>ProtocolFile</Identifier>
+            <DisplayName>Protocol File</DisplayName>
+            <Description>The file name of the Protocol to run.</Description>
+            <DataType>
+                <Basic>String</Basic>
+            </DataType>
+        </Parameter>
+        <Parameter>
+            <Identifier>IsSimulating</Identifier>
+            <DisplayName>Is Simulating</DisplayName>
+            <Description>Defines whether the protocol gets just simulated or actually executed.</Description>
+            <DataType>
+                <Basic>Boolean</Basic>
+            </DataType>
+        </Parameter>
+        <Response>
+            <Identifier>ReturnValue</Identifier>
+            <DisplayName>Return Value</DisplayName>
+            <Description>The returned value.</Description>
+            <DataType>
+                <Basic>Integer</Basic>
+            </DataType>
+        </Response>
+    </Command>
+</Feature>

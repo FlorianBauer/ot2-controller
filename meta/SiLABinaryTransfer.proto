@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package sila2.org.silastandard;
+
+option java_outer_classname = "SiLABinaryTransfer";
+
+import "SiLAFramework.proto";
+
+service BinaryUpload {
+    rpc CreateBinary (CreateBinaryRequest) returns (CreateBinaryResponse) {}
+    rpc UploadChunk (stream UploadChunkRequest) returns (stream UploadChunkResponse) {}
+    rpc DeleteBinary (DeleteBinaryRequest) returns (DeleteBinaryResponse) {}
+}
+
+service BinaryDownload {
+    rpc GetBinaryInfo (GetBinaryInfoRequest) returns (GetBinaryInfoResponse) {}
+    rpc GetChunk (stream GetChunkRequest) returns (stream GetChunkResponse) {}
+    rpc DeleteBinary (DeleteBinaryRequest) returns (DeleteBinaryResponse) {}
+}
+
+message CreateBinaryRequest {
+    uint64 binarySize = 1;
+    uint32 chunkCount = 2;
+    string parameterIdentifier = 3;
+}
+
+message CreateBinaryResponse {
+    string binaryTransferUUID = 1;
+    Duration lifetimeOfBinary = 2;
+}
+
+message UploadChunkRequest {
+    string binaryTransferUUID = 1;
+    uint32 chunkIndex = 2;
+    bytes payload = 3;
+}
+
+message UploadChunkResponse {
+    string binaryTransferUUID = 1;
+    uint32 chunkIndex = 2;
+    Duration lifetimeOfBinary = 3;
+}
+
+message DeleteBinaryRequest {
+    string binaryTransferUUID = 1;
+}
+
+message DeleteBinaryResponse {
+}
+
+message GetBinaryInfoRequest {
+    string binaryTransferUUID = 1;
+}
+
+message GetBinaryInfoResponse {
+    uint64 binarySize = 1;
+    Duration lifetimeOfBinary = 2;
+}
+
+message GetChunkRequest {
+    string binaryTransferUUID = 1;
+    uint64 offset = 2;
+    uint32 length = 3;
+}
+
+message GetChunkResponse {
+    string binaryTransferUUID = 1;
+    uint64 offset = 2;
+    bytes payload = 3;
+    Duration lifetimeOfBinary = 4;
+}
+
+message BinaryTransferError {
+    enum ErrorType {
+        INVALID_BINARY_TRANSFER_UUID = 0;
+        BINARY_UPLOAD_FAILED = 1;
+        BINARY_DOWNLOAD_FAILED = 2;
+    }
+    ErrorType errorType = 1;
+    string message = 2;
+}

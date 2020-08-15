@@ -1,0 +1,18 @@
+{
+  "service_name": "Ot2Controller",
+  "service_description": "A SiLA service enabling the execution of python protocols on a Opentrons 2 liquid dispenser robot.",
+  "service_type": "Liquid Dispenser Robot Protocol Server",
+  "authors": "Florian Bauer <florian.bauer.dev@gmail.com>",
+  "creation_date": "2020-08-12",
+  "version": "0.0.1",
+  "vendor_url": "https://www.cs7.tf.fau.de",
+  "SiLA_standard_feature_list": [
+    "SiLAService"
+  ],
+  "SiLA_feature_list": [
+    "Ot2Controller"
+  ],
+  "communication_port": "50053",
+  "IP_address": "127.0.0.1",
+  "hostname": "localhost"
+}

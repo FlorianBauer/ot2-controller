@@ -1,0 +1,128 @@
+syntax = "proto3";
+
+package sila2.org.silastandard;
+
+option java_outer_classname = "SiLAFramework";
+
+// -------- SiLA Basic Types --------
+message String {
+    string value = 1;
+}
+
+message Integer {
+    int64 value = 1;
+}
+
+message Real {
+    double value = 1;
+}
+
+message Boolean {
+    bool value = 1;
+}
+
+message Binary {
+    oneof union {
+        bytes value = 1;
+        string binaryTransferUUID = 2;
+    }
+}
+
+message Date {
+    uint32 day = 1;
+    uint32 month = 2;
+    uint32 year = 3;
+    Timezone timezone = 4;
+}
+
+message Time {
+    uint32 second = 1;
+    uint32 minute = 2;
+    uint32 hour = 3;
+    Timezone timezone = 4;
+}
+
+message Timestamp {
+    uint32 second = 1;
+    uint32 minute = 2;
+    uint32 hour = 3;
+    uint32 day = 4;
+    uint32 month = 5;
+    uint32 year = 6;
+    Timezone timezone = 7;
+}
+
+message Timezone {
+    int32 hours = 1;
+    uint32 minutes = 2;
+}
+
+// -------- SiLA AnyType Type --------
+message Any {
+    string type = 1;
+    bytes payload = 2;
+}
+
+// -------- Framework Types --------
+message Duration {
+    int64 seconds = 1;
+    int32 nanos = 2;
+}
+
+message CommandExecutionUUID {
+    string value = 1;
+}
+
+message CommandConfirmation {
+    CommandExecutionUUID commandExecutionUUID = 1;
+    Duration lifetimeOfExecution = 2;
+}
+
+message ExecutionInfo {
+    enum CommandStatus {
+        waiting = 0 ;
+        running = 1;
+        finishedSuccessfully = 2;
+        finishedWithError = 3;
+    }
+    CommandStatus commandStatus = 1;
+    Real progressInfo = 2;
+    Duration estimatedRemainingTime = 3;
+    Duration updatedLifetimeOfExecution = 4;
+}
+
+// -------- Error Handling --------
+message SiLAError {
+    oneof error {
+        ValidationError validationError = 1;
+        DefinedExecutionError definedExecutionError = 2;
+        UndefinedExecutionError undefinedExecutionError = 3;
+        FrameworkError frameworkError = 4;
+    }
+}
+
+message ValidationError {
+    string parameter = 1;
+    string message = 2;
+}
+
+message DefinedExecutionError {
+    string errorIdentifier = 1;
+    string message = 2;
+}
+
+message UndefinedExecutionError {
+    string message = 1;
+}
+
+message FrameworkError {
+    enum ErrorType {
+        COMMAND_EXECUTION_NOT_ACCEPTED = 0;
+        INVALID_COMMAND_EXECUTION_UUID = 1;
+        COMMAND_EXECUTION_NOT_FINISHED = 2;
+        INVALID_METADATA = 3;
+        NO_METADATA_ALLOWED = 4;
+    }
+    ErrorType errorType = 1;
+    string message = 2;
+}

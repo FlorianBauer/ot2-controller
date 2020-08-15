@@ -1,0 +1,13 @@
+# Temporary and core files
+~*
+*.~*
+core
+
+# Python related directories and files
+venv/
+env/
+__pycache__/
+*.pyc
+
+# PyCharm / InteliJ projects folder
+.idea/
