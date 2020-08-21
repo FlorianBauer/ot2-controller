@@ -136,11 +136,11 @@ class Ot2ControllerSimulation:
 
         # initialize the return value
         return_value = None
-    
-        # TODO:
-        #   Add implementation of Simulation for command RemoveProtocol here and write the resulting response
-        #   in return_value
-    
+
+        return_value = Ot2Controller_pb2.Get_InstalledProtocols_Responses(
+            InstalledProtocols=[silaFW_pb2.String(value="dummy_protocol_01.py"),
+                                silaFW_pb2.String(value="dummy_protocol_02.py")])
+
         # fallback to default
         if return_value is None:
             return_value = Ot2Controller_pb2.RemoveProtocol_Responses(
