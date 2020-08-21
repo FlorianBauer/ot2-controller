@@ -30,9 +30,9 @@ __version__ = "0.0.1"
 
 # import general packages
 import logging
-import time         # used for observables
-import uuid         # used for observables
-import grpc         # used for type hinting only
+import time  # used for observables
+import uuid  # used for observables
+import grpc  # used for type hinting only
 
 # import SiLA2 library
 import sila2lib.framework.SiLAFramework_pb2 as silaFW_pb2
@@ -53,7 +53,7 @@ class Ot2ControllerSimulation:
     """
 
     def __init__(self):
-        """Class initialiser"""
+        """Class initializer"""
 
         logging.debug('Started server in mode: {mode}'.format(mode='Simulation'))
 
@@ -104,23 +104,22 @@ class Ot2ControllerSimulation:
         :returns: The return object defined for the command with the following fields:
             request.EmptyResponse (Empty Response): An empty response data type used if no response is required.
         """
-    
+
         # initialise the return value
         return_value = None
-    
+
         # TODO:
         #   Add implementation of Simulation for command UploadProtocol here and write the resulting response
         #   in return_value
-    
+
         # fallback to default
         if return_value is None:
             return_value = Ot2Controller_pb2.UploadProtocol_Responses(
                 **default_dict['UploadProtocol_Responses']
             )
-    
+
         return return_value
-    
-    
+
     def RemoveProtocol(self, request, context: grpc.ServicerContext) \
             -> Ot2Controller_pb2.RemoveProtocol_Responses:
         """
@@ -134,8 +133,8 @@ class Ot2ControllerSimulation:
         :returns: The return object defined for the command with the following fields:
             request.EmptyResponse (Empty Response): An empty response data type used if no response is required.
         """
-    
-        # initialise the return value
+
+        # initialize the return value
         return_value = None
     
         # TODO:
@@ -147,10 +146,9 @@ class Ot2ControllerSimulation:
             return_value = Ot2Controller_pb2.RemoveProtocol_Responses(
                 **default_dict['RemoveProtocol_Responses']
             )
-    
+
         return return_value
-    
-    
+
     def RunProtocol(self, request, context: grpc.ServicerContext) \
             -> Ot2Controller_pb2.RunProtocol_Responses:
         """
@@ -165,22 +163,21 @@ class Ot2ControllerSimulation:
         :returns: The return object defined for the command with the following fields:
             request.ReturnValue (Return Value): The returned value.
         """
-    
+
         # initialise the return value
         return_value = None
-    
+
         # TODO:
         #   Add implementation of Simulation for command RunProtocol here and write the resulting response
         #   in return_value
-    
+
         # fallback to default
         if return_value is None:
             return_value = Ot2Controller_pb2.RunProtocol_Responses(
                 **default_dict['RunProtocol_Responses']
             )
-    
+
         return return_value
-    
 
     def Get_Connection(self, request, context: grpc.ServicerContext) \
             -> Ot2Controller_pb2.Get_Connection_Responses:
@@ -194,22 +191,22 @@ class Ot2ControllerSimulation:
         :returns: A response object with the following fields:
             request.Connection (Connection): Connection details to the remote OT-2.
         """
-    
+
         # initialise the return value
         return_value: Ot2Controller_pb2.Get_Connection_Responses = None
-    
+
         # TODO:
         #   Add implementation of Simulation for property Connection here and write the resulting response
         #   in return_value
-    
+
         # fallback to default
         if return_value is None:
             return_value = Ot2Controller_pb2.Get_Connection_Responses(
                 **default_dict['Get_Connection_Responses']
             )
-    
+
         return return_value
-    
+
     def Get_InstalledProtocols(self, request, context: grpc.ServicerContext) \
             -> Ot2Controller_pb2.Get_InstalledProtocols_Responses:
         """
@@ -222,18 +219,18 @@ class Ot2ControllerSimulation:
         :returns: A response object with the following fields:
             request.InstalledProtocols (Installed Protocols): List of the available Protocols already installed on the OT-2.
         """
-    
+
         # initialise the return value
         return_value: Ot2Controller_pb2.Get_InstalledProtocols_Responses = None
-    
+
         # TODO:
         #   Add implementation of Simulation for property InstalledProtocols here and write the resulting response
         #   in return_value
-    
+
         # fallback to default
         if return_value is None:
             return_value = Ot2Controller_pb2.Get_InstalledProtocols_Responses(
                 **default_dict['Get_InstalledProtocols_Responses']
             )
-    
+
         return return_value

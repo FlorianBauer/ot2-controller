@@ -50,7 +50,7 @@ class Ot2ControllerServer(SiLA2Server):
     """
 
     def __init__(self, cmd_args, simulation_mode: bool = True):
-        """Class initialiser"""
+        """Class initializer"""
         super().__init__(
             name=cmd_args.server_name, description=cmd_args.description,
             server_type=cmd_args.server_type, server_uuid=None,
@@ -95,7 +95,9 @@ def parse_command_line():
     parser.add_argument('-t', '--server-type', action='store',
                         default="Liquid Dispenser Robot Protocol Server", help='start SiLA server with [server-type]')
     parser.add_argument('-d', '--description', action='store',
-                        default="A SiLA 2 service enabling the execution of python protocols on a Opentrons 2 liquid handler robot.", help='SiLA server description')
+                        default="A SiLA 2 service enabling the execution of python protocols on a Opentrons 2 liquid "
+                                "handler robot.",
+                        help='SiLA server description')
 
     # Encryption
     parser.add_argument('-X', '--encryption', action='store', default=None,
@@ -121,12 +123,12 @@ def parse_command_line():
             parsed_args.encryption_cert = parsed_args.encryption + '.cert'
 
     return parsed_args
-    
-        
+
+
 if __name__ == '__main__':
     # or use logging.ERROR for less output
     logging.basicConfig(format='%(levelname)-8s| %(module)s.%(funcName)s: %(message)s', level=logging.DEBUG)
-    
+
     args = parse_command_line()
 
     # generate SiLA2Server
