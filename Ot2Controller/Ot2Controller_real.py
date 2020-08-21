@@ -33,7 +33,7 @@ import logging
 import time  # used for observables
 import uuid  # used for observables
 import grpc  # used for type hinting only
-
+import paramiko  # used for SSH
 # import SiLA2 library
 import sila2lib.framework.SiLAFramework_pb2 as silaFW_pb2
 
@@ -222,11 +222,37 @@ class Ot2ControllerReal:
 
         # initialize the return value
         return_value: Ot2Controller_pb2.Get_InstalledProtocols_Responses = None
-    
-        # TODO:
-        #   Add implementation of Real for property InstalledProtocols here and write the resulting response
-        #   in return_value
-    
+
+
+        router_ip = "127.0.0.1"
+        router_username = ""
+        router_password = ""
+        default_protocol_path = "~/dummy/"
+
+        ssh = paramiko.SSHClient()
+        # Load SSH host keys.
+        ssh.load_system_host_keys()
+        # Add SSH host key automatically if needed.
+        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        # Connect to router using username/password authentication.
+        ssh.connect(router_ip,
+                    username=router_username,
+                    password=router_password,
+                    look_for_keys=False)
+
+        # Run command.
+        ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command("ls " + default_protocol_path)
+        output = ssh_stdout.readlines()
+
+        # Close connection.
+        ssh.close()
+
+        protocol_list = []
+        for line in output:
+            protocol_list.append(silaFW_pb2.String(value=line))
+
+        return_value = Ot2Controller_pb2.Get_InstalledProtocols_Responses(InstalledProtocols=protocol_list)
+
         # fallback to default
         if return_value is None:
             return_value = Ot2Controller_pb2.Get_InstalledProtocols_Responses(
