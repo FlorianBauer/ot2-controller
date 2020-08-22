@@ -223,9 +223,12 @@ class Ot2ControllerSimulation:
         # initialise the return value
         return_value: Ot2Controller_pb2.Get_InstalledProtocols_Responses = None
 
-        # TODO:
-        #   Add implementation of Simulation for property InstalledProtocols here and write the resulting response
-        #   in return_value
+        protocol_dummy_list = [
+            silaFW_pb2.String(value="dummy_protocol_entry_01.py"),
+            silaFW_pb2.String(value="dummy_protocol_entry_02.py"),
+            silaFW_pb2.String(value="dummy_protocol_entry_03.py")]
+
+        return_value = Ot2Controller_pb2.Get_InstalledProtocols_Responses(InstalledProtocols=protocol_dummy_list)
 
         # fallback to default
         if return_value is None:
