@@ -223,11 +223,12 @@ class Ot2ControllerReal:
         # initialize the return value
         return_value: Ot2Controller_pb2.Get_InstalledProtocols_Responses = None
 
-
-        router_ip = "127.0.0.1"
+        ot2_device_ip = "127.0.0.1"
         router_username = ""
         router_password = ""
-        default_protocol_path = "~/dummy/"
+        local_test_path = "~/dummy"
+        user_storage_dir = local_test_path + "/data/user_storage"
+        jupyter_notebooks_dir = local_test_path + "/var/lib/jupyter/notebooks"
 
         ssh = paramiko.SSHClient()
         # Load SSH host keys.
@@ -235,13 +236,13 @@ class Ot2ControllerReal:
         # Add SSH host key automatically if needed.
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         # Connect to router using username/password authentication.
-        ssh.connect(router_ip,
+        ssh.connect(ot2_device_ip,
                     username=router_username,
                     password=router_password,
                     look_for_keys=False)
 
         # Run command.
-        ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command("ls " + default_protocol_path)
+        ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command("ls " + user_storage_dir)
         output = ssh_stdout.readlines()
 
         # Close connection.
