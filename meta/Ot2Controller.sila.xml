@@ -9,16 +9,29 @@
     <Property>
         <Identifier>Connection</Identifier>
         <DisplayName>Connection</DisplayName>
-        <Description>Connection details to the remote OT-2.</Description>
+        <Description>Connection details of the remote OT-2.</Description>
         <Observable>No</Observable>
         <DataType>
             <Basic>String</Basic>
         </DataType>
     </Property>
     <Property>
-        <Identifier>InstalledProtocols</Identifier>
-        <DisplayName>Installed Protocols</DisplayName>
-        <Description>List of the available Protocols already installed on the OT-2.</Description>
+        <Identifier>AvailableProtocols</Identifier>
+        <DisplayName>Available Protocols</DisplayName>
+        <Description>List of the stored files available on the OT-2.</Description>
+        <Observable>No</Observable>
+        <DataType>
+            <List>
+                <DataType>
+                    <Basic>String</Basic>
+                </DataType>
+            </List>
+        </DataType>
+    </Property>
+    <Property>
+        <Identifier>AvailableJupyterNotebooks</Identifier>
+        <DisplayName>Available Jupyter Notebooks</DisplayName>
+        <Description>List of the stored Jupyter Notebooks available on the OT-2.</Description>
         <Observable>No</Observable>
         <DataType>
             <List>
@@ -31,7 +44,7 @@
     <Command>
         <Identifier>UploadProtocol</Identifier>
         <DisplayName>Upload Protocol</DisplayName>
-        <Description>Uploads the given Protocol to the OT-2.</Description>
+        <Description>Uploads the given Protocol to the "/data/user_storage" dir on the OT-2.</Description>
         <Observable>No</Observable>
         <Parameter>
             <Identifier>ProtocolSourcePath</Identifier>
@@ -45,7 +58,7 @@
     <Command>
         <Identifier>RemoveProtocol</Identifier>
         <DisplayName>Remove Protocol</DisplayName>
-        <Description>Removes the given Protocol to the OT-2.</Description>
+        <Description>Removes the given Protocol from the "/data/user_storage" dir on the OT-2.</Description>
         <Observable>No</Observable>
         <Parameter>
             <Identifier>ProtocolFile</Identifier>

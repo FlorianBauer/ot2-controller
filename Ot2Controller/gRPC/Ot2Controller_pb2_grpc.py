@@ -36,10 +36,15 @@ class Ot2ControllerStub(object):
                 request_serializer=Ot2Controller__pb2.Get_Connection_Parameters.SerializeToString,
                 response_deserializer=Ot2Controller__pb2.Get_Connection_Responses.FromString,
                 )
-        self.Get_InstalledProtocols = channel.unary_unary(
-                '/sila2.de.fau.dispensing.ot2controller.v1.Ot2Controller/Get_InstalledProtocols',
-                request_serializer=Ot2Controller__pb2.Get_InstalledProtocols_Parameters.SerializeToString,
-                response_deserializer=Ot2Controller__pb2.Get_InstalledProtocols_Responses.FromString,
+        self.Get_AvailableProtocols = channel.unary_unary(
+                '/sila2.de.fau.dispensing.ot2controller.v1.Ot2Controller/Get_AvailableProtocols',
+                request_serializer=Ot2Controller__pb2.Get_AvailableProtocols_Parameters.SerializeToString,
+                response_deserializer=Ot2Controller__pb2.Get_AvailableProtocols_Responses.FromString,
+                )
+        self.Get_AvailableJupyterNotebooks = channel.unary_unary(
+                '/sila2.de.fau.dispensing.ot2controller.v1.Ot2Controller/Get_AvailableJupyterNotebooks',
+                request_serializer=Ot2Controller__pb2.Get_AvailableJupyterNotebooks_Parameters.SerializeToString,
+                response_deserializer=Ot2Controller__pb2.Get_AvailableJupyterNotebooks_Responses.FromString,
                 )
 
 
@@ -50,7 +55,7 @@ class Ot2ControllerServicer(object):
 
     def UploadProtocol(self, request, context):
         """Upload Protocol
-        Uploads the given Protocol to the OT-2.
+        Uploads the given Protocol to the "/data/user_storage" dir on the OT-2.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -58,7 +63,7 @@ class Ot2ControllerServicer(object):
 
     def RemoveProtocol(self, request, context):
         """Remove Protocol
-        Removes the given Protocol to the OT-2.
+        Removes the given Protocol from the "/data/user_storage" dir on the OT-2.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -80,9 +85,17 @@ class Ot2ControllerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def Get_InstalledProtocols(self, request, context):
-        """Installed Protocols
-        List of the available Protocols already installed on the OT-2.
+    def Get_AvailableProtocols(self, request, context):
+        """Available Protocols
+        List of the stored files available on the OT-2.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Get_AvailableJupyterNotebooks(self, request, context):
+        """Available Jupyter Notebooks
+        List of the stored Jupyter Notebooks available on the OT-2.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -111,10 +124,15 @@ def add_Ot2ControllerServicer_to_server(servicer, server):
                     request_deserializer=Ot2Controller__pb2.Get_Connection_Parameters.FromString,
                     response_serializer=Ot2Controller__pb2.Get_Connection_Responses.SerializeToString,
             ),
-            'Get_InstalledProtocols': grpc.unary_unary_rpc_method_handler(
-                    servicer.Get_InstalledProtocols,
-                    request_deserializer=Ot2Controller__pb2.Get_InstalledProtocols_Parameters.FromString,
-                    response_serializer=Ot2Controller__pb2.Get_InstalledProtocols_Responses.SerializeToString,
+            'Get_AvailableProtocols': grpc.unary_unary_rpc_method_handler(
+                    servicer.Get_AvailableProtocols,
+                    request_deserializer=Ot2Controller__pb2.Get_AvailableProtocols_Parameters.FromString,
+                    response_serializer=Ot2Controller__pb2.Get_AvailableProtocols_Responses.SerializeToString,
+            ),
+            'Get_AvailableJupyterNotebooks': grpc.unary_unary_rpc_method_handler(
+                    servicer.Get_AvailableJupyterNotebooks,
+                    request_deserializer=Ot2Controller__pb2.Get_AvailableJupyterNotebooks_Parameters.FromString,
+                    response_serializer=Ot2Controller__pb2.Get_AvailableJupyterNotebooks_Responses.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -197,7 +215,7 @@ class Ot2Controller(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def Get_InstalledProtocols(request,
+    def Get_AvailableProtocols(request,
             target,
             options=(),
             channel_credentials=None,
@@ -207,8 +225,25 @@ class Ot2Controller(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/sila2.de.fau.dispensing.ot2controller.v1.Ot2Controller/Get_InstalledProtocols',
-            Ot2Controller__pb2.Get_InstalledProtocols_Parameters.SerializeToString,
-            Ot2Controller__pb2.Get_InstalledProtocols_Responses.FromString,
+        return grpc.experimental.unary_unary(request, target, '/sila2.de.fau.dispensing.ot2controller.v1.Ot2Controller/Get_AvailableProtocols',
+            Ot2Controller__pb2.Get_AvailableProtocols_Parameters.SerializeToString,
+            Ot2Controller__pb2.Get_AvailableProtocols_Responses.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Get_AvailableJupyterNotebooks(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/sila2.de.fau.dispensing.ot2controller.v1.Ot2Controller/Get_AvailableJupyterNotebooks',
+            Ot2Controller__pb2.Get_AvailableJupyterNotebooks_Parameters.SerializeToString,
+            Ot2Controller__pb2.Get_AvailableJupyterNotebooks_Responses.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

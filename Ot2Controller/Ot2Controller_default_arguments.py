@@ -44,6 +44,10 @@ default_dict['Get_Connection_Responses'] = {
     'Connection': silaFW_pb2.String(value='default string')
 }
 
-default_dict['Get_InstalledProtocols_Responses'] = {
-    'InstalledProtocols': [silaFW_pb2.String(value='default string')]
+default_dict['Get_AvailableProtocols_Responses'] = {
+    'AvailableProtocols': [silaFW_pb2.String(value='default string')]
+}
+
+default_dict['Get_AvailableJupyterNotebooks_Responses'] = {
+    'AvailableJupyterNotebooks': [silaFW_pb2.String(value='default string')]
 }

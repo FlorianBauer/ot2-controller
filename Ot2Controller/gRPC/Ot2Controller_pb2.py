@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x13Ot2Controller.proto\x12(sila2.de.fau.dispensing.ot2controller.v1\x1a\x13SiLAFramework.proto\"W\n\x19UploadProtocol_Parameters\x12:\n\x12ProtocolSourcePath\x18\x01 \x01(\x0b\x32\x1e.sila2.org.silastandard.String\"\x1a\n\x18UploadProtocol_Responses\"Q\n\x19RemoveProtocol_Parameters\x12\x34\n\x0cProtocolFile\x18\x01 \x01(\x0b\x32\x1e.sila2.org.silastandard.String\"\x1a\n\x18RemoveProtocol_Responses\"\x85\x01\n\x16RunProtocol_Parameters\x12\x34\n\x0cProtocolFile\x18\x01 \x01(\x0b\x32\x1e.sila2.org.silastandard.String\x12\x35\n\x0cIsSimulating\x18\x02 \x01(\x0b\x32\x1f.sila2.org.silastandard.Boolean\"M\n\x15RunProtocol_Responses\x12\x34\n\x0bReturnValue\x18\x01 \x01(\x0b\x32\x1f.sila2.org.silastandard.Integer\"\x1b\n\x19Get_Connection_Parameters\"N\n\x18Get_Connection_Responses\x12\x32\n\nConnection\x18\x01 \x01(\x0b\x32\x1e.sila2.org.silastandard.String\"#\n!Get_InstalledProtocols_Parameters\"^\n Get_InstalledProtocols_Responses\x12:\n\x12InstalledProtocols\x18\x01 \x03(\x0b\x32\x1e.sila2.org.silastandard.String2\xb4\x06\n\rOt2Controller\x12\x9b\x01\n\x0eUploadProtocol\x12\x43.sila2.de.fau.dispensing.ot2controller.v1.UploadProtocol_Parameters\x1a\x42.sila2.de.fau.dispensing.ot2controller.v1.UploadProtocol_Responses\"\x00\x12\x9b\x01\n\x0eRemoveProtocol\x12\x43.sila2.de.fau.dispensing.ot2controller.v1.RemoveProtocol_Parameters\x1a\x42.sila2.de.fau.dispensing.ot2controller.v1.RemoveProtocol_Responses\"\x00\x12\x92\x01\n\x0bRunProtocol\x12@.sila2.de.fau.dispensing.ot2controller.v1.RunProtocol_Parameters\x1a?.sila2.de.fau.dispensing.ot2controller.v1.RunProtocol_Responses\"\x00\x12\x9b\x01\n\x0eGet_Connection\x12\x43.sila2.de.fau.dispensing.ot2controller.v1.Get_Connection_Parameters\x1a\x42.sila2.de.fau.dispensing.ot2controller.v1.Get_Connection_Responses\"\x00\x12\xb3\x01\n\x16Get_InstalledProtocols\x12K.sila2.de.fau.dispensing.ot2controller.v1.Get_InstalledProtocols_Parameters\x1aJ.sila2.de.fau.dispensing.ot2controller.v1.Get_InstalledProtocols_Responses\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x13Ot2Controller.proto\x12(sila2.de.fau.dispensing.ot2controller.v1\x1a\x13SiLAFramework.proto\"W\n\x19UploadProtocol_Parameters\x12:\n\x12ProtocolSourcePath\x18\x01 \x01(\x0b\x32\x1e.sila2.org.silastandard.String\"\x1a\n\x18UploadProtocol_Responses\"Q\n\x19RemoveProtocol_Parameters\x12\x34\n\x0cProtocolFile\x18\x01 \x01(\x0b\x32\x1e.sila2.org.silastandard.String\"\x1a\n\x18RemoveProtocol_Responses\"\x85\x01\n\x16RunProtocol_Parameters\x12\x34\n\x0cProtocolFile\x18\x01 \x01(\x0b\x32\x1e.sila2.org.silastandard.String\x12\x35\n\x0cIsSimulating\x18\x02 \x01(\x0b\x32\x1f.sila2.org.silastandard.Boolean\"M\n\x15RunProtocol_Responses\x12\x34\n\x0bReturnValue\x18\x01 \x01(\x0b\x32\x1f.sila2.org.silastandard.Integer\"\x1b\n\x19Get_Connection_Parameters\"N\n\x18Get_Connection_Responses\x12\x32\n\nConnection\x18\x01 \x01(\x0b\x32\x1e.sila2.org.silastandard.String\"#\n!Get_AvailableProtocols_Parameters\"^\n Get_AvailableProtocols_Responses\x12:\n\x12\x41vailableProtocols\x18\x01 \x03(\x0b\x32\x1e.sila2.org.silastandard.String\"*\n(Get_AvailableJupyterNotebooks_Parameters\"l\n\'Get_AvailableJupyterNotebooks_Responses\x12\x41\n\x19\x41vailableJupyterNotebooks\x18\x01 \x03(\x0b\x32\x1e.sila2.org.silastandard.String2\xff\x07\n\rOt2Controller\x12\x9b\x01\n\x0eUploadProtocol\x12\x43.sila2.de.fau.dispensing.ot2controller.v1.UploadProtocol_Parameters\x1a\x42.sila2.de.fau.dispensing.ot2controller.v1.UploadProtocol_Responses\"\x00\x12\x9b\x01\n\x0eRemoveProtocol\x12\x43.sila2.de.fau.dispensing.ot2controller.v1.RemoveProtocol_Parameters\x1a\x42.sila2.de.fau.dispensing.ot2controller.v1.RemoveProtocol_Responses\"\x00\x12\x92\x01\n\x0bRunProtocol\x12@.sila2.de.fau.dispensing.ot2controller.v1.RunProtocol_Parameters\x1a?.sila2.de.fau.dispensing.ot2controller.v1.RunProtocol_Responses\"\x00\x12\x9b\x01\n\x0eGet_Connection\x12\x43.sila2.de.fau.dispensing.ot2controller.v1.Get_Connection_Parameters\x1a\x42.sila2.de.fau.dispensing.ot2controller.v1.Get_Connection_Responses\"\x00\x12\xb3\x01\n\x16Get_AvailableProtocols\x12K.sila2.de.fau.dispensing.ot2controller.v1.Get_AvailableProtocols_Parameters\x1aJ.sila2.de.fau.dispensing.ot2controller.v1.Get_AvailableProtocols_Responses\"\x00\x12\xc8\x01\n\x1dGet_AvailableJupyterNotebooks\x12R.sila2.de.fau.dispensing.ot2controller.v1.Get_AvailableJupyterNotebooks_Parameters\x1aQ.sila2.de.fau.dispensing.ot2controller.v1.Get_AvailableJupyterNotebooks_Responses\"\x00\x62\x06proto3'
   ,
   dependencies=[SiLAFramework__pb2.DESCRIPTOR,])
 
@@ -269,9 +269,9 @@ _GET_CONNECTION_RESPONSES = _descriptor.Descriptor(
 )
 
 
-_GET_INSTALLEDPROTOCOLS_PARAMETERS = _descriptor.Descriptor(
-  name='Get_InstalledProtocols_Parameters',
-  full_name='sila2.de.fau.dispensing.ot2controller.v1.Get_InstalledProtocols_Parameters',
+_GET_AVAILABLEPROTOCOLS_PARAMETERS = _descriptor.Descriptor(
+  name='Get_AvailableProtocols_Parameters',
+  full_name='sila2.de.fau.dispensing.ot2controller.v1.Get_AvailableProtocols_Parameters',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
@@ -294,16 +294,16 @@ _GET_INSTALLEDPROTOCOLS_PARAMETERS = _descriptor.Descriptor(
 )
 
 
-_GET_INSTALLEDPROTOCOLS_RESPONSES = _descriptor.Descriptor(
-  name='Get_InstalledProtocols_Responses',
-  full_name='sila2.de.fau.dispensing.ot2controller.v1.Get_InstalledProtocols_Responses',
+_GET_AVAILABLEPROTOCOLS_RESPONSES = _descriptor.Descriptor(
+  name='Get_AvailableProtocols_Responses',
+  full_name='sila2.de.fau.dispensing.ot2controller.v1.Get_AvailableProtocols_Responses',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='InstalledProtocols', full_name='sila2.de.fau.dispensing.ot2controller.v1.Get_InstalledProtocols_Responses.InstalledProtocols', index=0,
+      name='AvailableProtocols', full_name='sila2.de.fau.dispensing.ot2controller.v1.Get_AvailableProtocols_Responses.AvailableProtocols', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -325,13 +325,71 @@ _GET_INSTALLEDPROTOCOLS_RESPONSES = _descriptor.Descriptor(
   serialized_end=769,
 )
 
+
+_GET_AVAILABLEJUPYTERNOTEBOOKS_PARAMETERS = _descriptor.Descriptor(
+  name='Get_AvailableJupyterNotebooks_Parameters',
+  full_name='sila2.de.fau.dispensing.ot2controller.v1.Get_AvailableJupyterNotebooks_Parameters',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=771,
+  serialized_end=813,
+)
+
+
+_GET_AVAILABLEJUPYTERNOTEBOOKS_RESPONSES = _descriptor.Descriptor(
+  name='Get_AvailableJupyterNotebooks_Responses',
+  full_name='sila2.de.fau.dispensing.ot2controller.v1.Get_AvailableJupyterNotebooks_Responses',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='AvailableJupyterNotebooks', full_name='sila2.de.fau.dispensing.ot2controller.v1.Get_AvailableJupyterNotebooks_Responses.AvailableJupyterNotebooks', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=815,
+  serialized_end=923,
+)
+
 _UPLOADPROTOCOL_PARAMETERS.fields_by_name['ProtocolSourcePath'].message_type = SiLAFramework__pb2._STRING
 _REMOVEPROTOCOL_PARAMETERS.fields_by_name['ProtocolFile'].message_type = SiLAFramework__pb2._STRING
 _RUNPROTOCOL_PARAMETERS.fields_by_name['ProtocolFile'].message_type = SiLAFramework__pb2._STRING
 _RUNPROTOCOL_PARAMETERS.fields_by_name['IsSimulating'].message_type = SiLAFramework__pb2._BOOLEAN
 _RUNPROTOCOL_RESPONSES.fields_by_name['ReturnValue'].message_type = SiLAFramework__pb2._INTEGER
 _GET_CONNECTION_RESPONSES.fields_by_name['Connection'].message_type = SiLAFramework__pb2._STRING
-_GET_INSTALLEDPROTOCOLS_RESPONSES.fields_by_name['InstalledProtocols'].message_type = SiLAFramework__pb2._STRING
+_GET_AVAILABLEPROTOCOLS_RESPONSES.fields_by_name['AvailableProtocols'].message_type = SiLAFramework__pb2._STRING
+_GET_AVAILABLEJUPYTERNOTEBOOKS_RESPONSES.fields_by_name['AvailableJupyterNotebooks'].message_type = SiLAFramework__pb2._STRING
 DESCRIPTOR.message_types_by_name['UploadProtocol_Parameters'] = _UPLOADPROTOCOL_PARAMETERS
 DESCRIPTOR.message_types_by_name['UploadProtocol_Responses'] = _UPLOADPROTOCOL_RESPONSES
 DESCRIPTOR.message_types_by_name['RemoveProtocol_Parameters'] = _REMOVEPROTOCOL_PARAMETERS
@@ -340,8 +398,10 @@ DESCRIPTOR.message_types_by_name['RunProtocol_Parameters'] = _RUNPROTOCOL_PARAME
 DESCRIPTOR.message_types_by_name['RunProtocol_Responses'] = _RUNPROTOCOL_RESPONSES
 DESCRIPTOR.message_types_by_name['Get_Connection_Parameters'] = _GET_CONNECTION_PARAMETERS
 DESCRIPTOR.message_types_by_name['Get_Connection_Responses'] = _GET_CONNECTION_RESPONSES
-DESCRIPTOR.message_types_by_name['Get_InstalledProtocols_Parameters'] = _GET_INSTALLEDPROTOCOLS_PARAMETERS
-DESCRIPTOR.message_types_by_name['Get_InstalledProtocols_Responses'] = _GET_INSTALLEDPROTOCOLS_RESPONSES
+DESCRIPTOR.message_types_by_name['Get_AvailableProtocols_Parameters'] = _GET_AVAILABLEPROTOCOLS_PARAMETERS
+DESCRIPTOR.message_types_by_name['Get_AvailableProtocols_Responses'] = _GET_AVAILABLEPROTOCOLS_RESPONSES
+DESCRIPTOR.message_types_by_name['Get_AvailableJupyterNotebooks_Parameters'] = _GET_AVAILABLEJUPYTERNOTEBOOKS_PARAMETERS
+DESCRIPTOR.message_types_by_name['Get_AvailableJupyterNotebooks_Responses'] = _GET_AVAILABLEJUPYTERNOTEBOOKS_RESPONSES
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 UploadProtocol_Parameters = _reflection.GeneratedProtocolMessageType('UploadProtocol_Parameters', (_message.Message,), {
@@ -400,19 +460,33 @@ Get_Connection_Responses = _reflection.GeneratedProtocolMessageType('Get_Connect
   })
 _sym_db.RegisterMessage(Get_Connection_Responses)
 
-Get_InstalledProtocols_Parameters = _reflection.GeneratedProtocolMessageType('Get_InstalledProtocols_Parameters', (_message.Message,), {
-  'DESCRIPTOR' : _GET_INSTALLEDPROTOCOLS_PARAMETERS,
+Get_AvailableProtocols_Parameters = _reflection.GeneratedProtocolMessageType('Get_AvailableProtocols_Parameters', (_message.Message,), {
+  'DESCRIPTOR' : _GET_AVAILABLEPROTOCOLS_PARAMETERS,
   '__module__' : 'Ot2Controller_pb2'
-  # @@protoc_insertion_point(class_scope:sila2.de.fau.dispensing.ot2controller.v1.Get_InstalledProtocols_Parameters)
+  # @@protoc_insertion_point(class_scope:sila2.de.fau.dispensing.ot2controller.v1.Get_AvailableProtocols_Parameters)
   })
-_sym_db.RegisterMessage(Get_InstalledProtocols_Parameters)
+_sym_db.RegisterMessage(Get_AvailableProtocols_Parameters)
 
-Get_InstalledProtocols_Responses = _reflection.GeneratedProtocolMessageType('Get_InstalledProtocols_Responses', (_message.Message,), {
-  'DESCRIPTOR' : _GET_INSTALLEDPROTOCOLS_RESPONSES,
+Get_AvailableProtocols_Responses = _reflection.GeneratedProtocolMessageType('Get_AvailableProtocols_Responses', (_message.Message,), {
+  'DESCRIPTOR' : _GET_AVAILABLEPROTOCOLS_RESPONSES,
   '__module__' : 'Ot2Controller_pb2'
-  # @@protoc_insertion_point(class_scope:sila2.de.fau.dispensing.ot2controller.v1.Get_InstalledProtocols_Responses)
+  # @@protoc_insertion_point(class_scope:sila2.de.fau.dispensing.ot2controller.v1.Get_AvailableProtocols_Responses)
   })
-_sym_db.RegisterMessage(Get_InstalledProtocols_Responses)
+_sym_db.RegisterMessage(Get_AvailableProtocols_Responses)
+
+Get_AvailableJupyterNotebooks_Parameters = _reflection.GeneratedProtocolMessageType('Get_AvailableJupyterNotebooks_Parameters', (_message.Message,), {
+  'DESCRIPTOR' : _GET_AVAILABLEJUPYTERNOTEBOOKS_PARAMETERS,
+  '__module__' : 'Ot2Controller_pb2'
+  # @@protoc_insertion_point(class_scope:sila2.de.fau.dispensing.ot2controller.v1.Get_AvailableJupyterNotebooks_Parameters)
+  })
+_sym_db.RegisterMessage(Get_AvailableJupyterNotebooks_Parameters)
+
+Get_AvailableJupyterNotebooks_Responses = _reflection.GeneratedProtocolMessageType('Get_AvailableJupyterNotebooks_Responses', (_message.Message,), {
+  'DESCRIPTOR' : _GET_AVAILABLEJUPYTERNOTEBOOKS_RESPONSES,
+  '__module__' : 'Ot2Controller_pb2'
+  # @@protoc_insertion_point(class_scope:sila2.de.fau.dispensing.ot2controller.v1.Get_AvailableJupyterNotebooks_Responses)
+  })
+_sym_db.RegisterMessage(Get_AvailableJupyterNotebooks_Responses)
 
 
 
@@ -423,8 +497,8 @@ _OT2CONTROLLER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=772,
-  serialized_end=1592,
+  serialized_start=926,
+  serialized_end=1949,
   methods=[
   _descriptor.MethodDescriptor(
     name='UploadProtocol',
@@ -467,12 +541,22 @@ _OT2CONTROLLER = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='Get_InstalledProtocols',
-    full_name='sila2.de.fau.dispensing.ot2controller.v1.Ot2Controller.Get_InstalledProtocols',
+    name='Get_AvailableProtocols',
+    full_name='sila2.de.fau.dispensing.ot2controller.v1.Ot2Controller.Get_AvailableProtocols',
     index=4,
     containing_service=None,
-    input_type=_GET_INSTALLEDPROTOCOLS_PARAMETERS,
-    output_type=_GET_INSTALLEDPROTOCOLS_RESPONSES,
+    input_type=_GET_AVAILABLEPROTOCOLS_PARAMETERS,
+    output_type=_GET_AVAILABLEPROTOCOLS_RESPONSES,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Get_AvailableJupyterNotebooks',
+    full_name='sila2.de.fau.dispensing.ot2controller.v1.Ot2Controller.Get_AvailableJupyterNotebooks',
+    index=5,
+    containing_service=None,
+    input_type=_GET_AVAILABLEJUPYTERNOTEBOOKS_PARAMETERS,
+    output_type=_GET_AVAILABLEJUPYTERNOTEBOOKS_RESPONSES,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
