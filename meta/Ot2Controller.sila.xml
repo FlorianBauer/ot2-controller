@@ -54,6 +54,9 @@
                 <Basic>String</Basic>
             </DataType>
         </Parameter>
+        <DefinedExecutionErrors>
+            <Identifier>UploadFileFailed</Identifier>
+        </DefinedExecutionErrors>
     </Command>
     <Command>
         <Identifier>RemoveProtocol</Identifier>
@@ -68,6 +71,9 @@
                 <Basic>String</Basic>
             </DataType>
         </Parameter>
+        <DefinedExecutionErrors>
+            <Identifier>RemoveFileFailed</Identifier>
+        </DefinedExecutionErrors>
     </Command>
     <Command>
         <Identifier>RunProtocol</Identifier>
@@ -85,7 +91,8 @@
         <Parameter>
             <Identifier>IsSimulating</Identifier>
             <DisplayName>Is Simulating</DisplayName>
-            <Description>Defines whether the protocol gets just simulated or actually executed.</Description>
+            <Description>Defines whether the protocol gets just simulated or actually executed on the device.
+            </Description>
             <DataType>
                 <Basic>Boolean</Basic>
             </DataType>
@@ -93,10 +100,22 @@
         <Response>
             <Identifier>ReturnValue</Identifier>
             <DisplayName>Return Value</DisplayName>
-            <Description>The returned value.</Description>
+            <Description>The returned value from the executed protocol. On a simulated execution, only the value 0
+                is indicating a successful simulation.
+            </Description>
             <DataType>
                 <Basic>Integer</Basic>
             </DataType>
         </Response>
     </Command>
+    <DefinedExecutionError>
+        <Identifier>UploadFileFailed</Identifier>
+        <DisplayName>Upload File Failed</DisplayName>
+        <Description>The upload of the file to the OT-2 device failed.</Description>
+    </DefinedExecutionError>
+    <DefinedExecutionError>
+        <Identifier>RemoveFileFailed</Identifier>
+        <DisplayName>Remove File Failed</DisplayName>
+        <Description>The file on the OT-2 device does not exist or could not be removed.</Description>
+    </DefinedExecutionError>
 </Feature>

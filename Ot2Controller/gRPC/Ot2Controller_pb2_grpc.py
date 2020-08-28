@@ -79,7 +79,7 @@ class Ot2ControllerServicer(object):
 
     def Get_Connection(self, request, context):
         """Connection
-        Connection details to the remote OT-2.
+        Connection details of the remote OT-2.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
