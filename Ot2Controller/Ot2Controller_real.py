@@ -110,7 +110,6 @@ class Ot2ControllerReal:
         :returns: The return object defined for the command with the following fields:
             request.EmptyResponse (Empty Response): An empty response data type used if no response is required.
         """
-        return_value = None
         scp = SCPClient(self.ssh.get_transport())
         file: str = str(Path(request.ProtocolSourcePath.value).expanduser().resolve())
 
@@ -123,12 +122,7 @@ class Ot2ControllerReal:
             scp.close()
             logging.debug(f"Uploaded {file} to {USER_STORAGE_DIR}")
 
-        # fallback to default
-        if return_value is None:
-            return_value = Ot2Controller_pb2.UploadProtocol_Responses(
-                **default_dict['UploadProtocol_Responses'])
-
-        return return_value
+        return Ot2Controller_pb2.UploadProtocol_Responses()
 
     def RemoveProtocol(self, request, context: grpc.ServicerContext) \
             -> Ot2Controller_pb2.RemoveProtocol_Responses:
@@ -143,9 +137,8 @@ class Ot2ControllerReal:
         :returns: The return object defined for the command with the following fields:
             request.EmptyResponse (Empty Response): An empty response data type used if no response is required.
         """
-        return_value = None
         file: str = str(Path(USER_STORAGE_DIR + request.ProtocolFile.value).expanduser().resolve())
-        logging.info(f"remove: {file}")
+        logging.debug(f"remove: {file}")
         ftp_client = self.ssh.open_sftp()
 
         try:
@@ -155,12 +148,7 @@ class Ot2ControllerReal:
         finally:
             ftp_client.close()
 
-        # fallback to default
-        if return_value is None:
-            return_value = Ot2Controller_pb2.RemoveProtocol_Responses(
-                **default_dict['RemoveProtocol_Responses'])
-
-        return return_value
+        return Ot2Controller_pb2.RemoveProtocol_Responses()
 
     def RunProtocol(self, request, context: grpc.ServicerContext) \
             -> Ot2Controller_pb2.RunProtocol_Responses:
