@@ -42,9 +42,10 @@ class Ot2ControllerReal:
     Implementation of the *OT-2 Controller* in *Real* mode
         A SiLA 2 service enabling the execution of python protocols on a Opentrons 2 liquid handler robot.
     """
-    _device_ip = "127.0.0.1"
-    _device_username = ""
-    _device_password = ""
+    _device_ip: str = "127.0.0.1"
+    # The the location of the generated private key.
+    # (see https://support.opentrons.com/en/articles/3203681-setting-up-ssh-access-to-your-ot-2)
+    _pkey: str = "~/.ssh/ot2_ssh_key"
 
     def __init__(self):
         """Class initializer"""
@@ -53,10 +54,9 @@ class Ot2ControllerReal:
         self.ssh.load_system_host_keys()
         # Add SSH host key automatically if needed.
         self.ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        # Connect to device using username/password authentication.
-        self.ssh.connect(Ot2ControllerReal._device_ip,
-                         username=Ot2ControllerReal._device_username,
-                         password=Ot2ControllerReal._device_password,
+        # Connect to device using key file authentication.
+        self.ssh.connect(hostname=Ot2ControllerReal._device_ip,
+                         pkey=Ot2ControllerReal._pkey,
                          look_for_keys=False)
         logging.debug('Started server in mode: {mode}'.format(mode='Real'))
 
