@@ -31,7 +31,6 @@ import shutil
 import grpc  # used for type hinting only
 import sila2lib.framework.SiLAFramework_pb2 as silaFW_pb2
 
-from .Ot2Controller_default_arguments import default_dict
 from .gRPC import Ot2Controller_pb2 as Ot2Controller_pb2
 
 USER_STORAGE_DIR: str = "/tmp/data/user_storage/"
@@ -95,9 +94,13 @@ class Ot2ControllerSimulation:
         pathlib.Path(USER_STORAGE_DIR).mkdir(parents=True, exist_ok=True)
         src: str = str(pathlib.Path(request.ProtocolSourcePath.value).expanduser().resolve())
         dst: str = USER_STORAGE_DIR
-        shutil.copy(src, dst)
-        logging.info(f"uploaded {src} to {dst}")
+        try:
+            shutil.copy(src, dst)
+        except FileNotFoundError as error:
+            logging.error(error)
+            raise
 
+        logging.info(f"uploaded {src} to {dst}")
         return Ot2Controller_pb2.UploadProtocol_Responses()
 
     def RemoveProtocol(self, request, context: grpc.ServicerContext) \
@@ -114,9 +117,13 @@ class Ot2ControllerSimulation:
             request.EmptyResponse (Empty Response): An empty response data type used if no response is required.
         """
         file: str = str(pathlib.Path(USER_STORAGE_DIR + request.ProtocolFile.value).expanduser().resolve())
-        os.remove(file)
-        logging.info(f"removed {file}")
+        try:
+            os.remove(file)
+        except FileNotFoundError as error:
+            logging.error(error)
+            raise
 
+        logging.info(f"removed {file}")
         return Ot2Controller_pb2.RemoveProtocol_Responses()
 
     def RunProtocol(self, request, context: grpc.ServicerContext) \
@@ -134,21 +141,17 @@ class Ot2ControllerSimulation:
             request.ReturnValue (Return Value): The returned value from the executed protocol. On a simulated execution, only the value 0
             is indicating a successful simulation.
         """
+        cmd: str = "python3 -m opentrons.simulate " + USER_STORAGE_DIR + request.ProtocolFile.value
 
-        # initialise the return value
-        return_value = None
+        logging.info(f"run '{cmd}'")
+        # Run command.
+        run_ret: int = os.system(cmd)
+        logging.info("run returned '" + str(run_ret) + "'")
 
-        # TODO:
-        #   Add implementation of Simulation for command RunProtocol here and write the resulting response
-        #   in return_value
+        if request.IsSimulating.value and run_ret != 0:
+            raise ValueError("The simulation of the protocol failed.")
 
-        # fallback to default
-        if return_value is None:
-            return_value = Ot2Controller_pb2.RunProtocol_Responses(
-                **default_dict['RunProtocol_Responses']
-            )
-
-        return return_value
+        return Ot2Controller_pb2.RunProtocol_Responses(ReturnValue=silaFW_pb2.Integer(value=run_ret))
 
     def Get_Connection(self, request, context: grpc.ServicerContext) \
             -> Ot2Controller_pb2.Get_Connection_Responses:
@@ -163,9 +166,7 @@ class Ot2ControllerSimulation:
             request.Connection (Connection): Connection details of the remote OT-2.
         """
         dummy_connection_info = silaFW_pb2.String(value="This is just the simulation mode. No real data or info here.")
-        return_value = Ot2Controller_pb2.Get_Connection_Responses(Connection=dummy_connection_info)
-
-        return return_value
+        return Ot2Controller_pb2.Get_Connection_Responses(Connection=dummy_connection_info)
 
     def Get_AvailableProtocols(self, request, context: grpc.ServicerContext) \
             -> Ot2Controller_pb2.Get_AvailableProtocols_Responses:
@@ -184,10 +185,7 @@ class Ot2ControllerSimulation:
             silaFW_pb2.String(value="dummy_protocol_02.py"),
             silaFW_pb2.String(value="dummy_protocol_03.py")
         ]
-
-        return_value = Ot2Controller_pb2.Get_AvailableProtocols_Responses(AvailableProtocols=protocol_list)
-
-        return return_value
+        return Ot2Controller_pb2.Get_AvailableProtocols_Responses(AvailableProtocols=protocol_list)
 
     def Get_AvailableJupyterNotebooks(self, request, context: grpc.ServicerContext) \
             -> Ot2Controller_pb2.Get_AvailableJupyterNotebooks_Responses:
@@ -206,8 +204,4 @@ class Ot2ControllerSimulation:
             silaFW_pb2.String(value="dummy_notebook_02.py"),
             silaFW_pb2.String(value="dummy_notebook_03.py")
         ]
-
-        return_value = Ot2Controller_pb2.Get_AvailableJupyterNotebooks_Responses(
-            AvailableJupyterNotebooks=notebook_list)
-
-        return return_value
+        return Ot2Controller_pb2.Get_AvailableJupyterNotebooks_Responses(AvailableJupyterNotebooks=notebook_list)
