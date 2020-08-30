@@ -1,9 +1,7 @@
 """
 ________________________________________________________________________
 
-:PROJECT: SiLA2_python
-
-*OT-2 Controller*
+:PROJECT: *OT-2 Controller*
 
 :details: Ot2Controller:
     A SiLA 2 complaint controller for an OT-2 Liquid Handler robot.
@@ -33,7 +31,6 @@ import sila2lib.framework.SiLAFramework_pb2 as silaFW_pb2
 from pathlib import Path
 from scp import SCPClient, SCPException
 from .gRPC import Ot2Controller_pb2 as Ot2Controller_pb2
-from .Ot2Controller_default_arguments import default_dict
 
 USER_STORAGE_DIR: str = "~/dummy" + "/data/user_storage/"
 JUPYTER_NOTEBOOK_DIR: str = "~/dummy" + "/var/lib/jupyter/notebooks/"
@@ -45,9 +42,9 @@ class Ot2ControllerReal:
     Implementation of the *OT-2 Controller* in *Real* mode
         A SiLA 2 service enabling the execution of python protocols on a Opentrons 2 liquid handler robot.
     """
-    __device_ip = "127.0.0.1"
-    __device_username = ""
-    __device_password = ""
+    _device_ip = "127.0.0.1"
+    _device_username = ""
+    _device_password = ""
 
     def __init__(self):
         """Class initializer"""
@@ -57,9 +54,9 @@ class Ot2ControllerReal:
         # Add SSH host key automatically if needed.
         self.ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         # Connect to device using username/password authentication.
-        self.ssh.connect(Ot2ControllerReal.__device_ip,
-                         username=Ot2ControllerReal.__device_username,
-                         password=Ot2ControllerReal.__device_password,
+        self.ssh.connect(Ot2ControllerReal._device_ip,
+                         username=Ot2ControllerReal._device_username,
+                         password=Ot2ControllerReal._device_password,
                          look_for_keys=False)
         logging.debug('Started server in mode: {mode}'.format(mode='Real'))
 
@@ -117,11 +114,11 @@ class Ot2ControllerReal:
             scp.put(file, recursive=True, remote_path=USER_STORAGE_DIR)
         except SCPException as error:
             logging.error(error)
-            raise error
+            raise
         finally:
             scp.close()
-            logging.debug(f"Uploaded {file} to {USER_STORAGE_DIR}")
 
+        logging.debug(f"Uploaded {file} to {USER_STORAGE_DIR}")
         return Ot2Controller_pb2.UploadProtocol_Responses()
 
     def RemoveProtocol(self, request, context: grpc.ServicerContext) \
@@ -143,8 +140,9 @@ class Ot2ControllerReal:
 
         try:
             ftp_client.remove(file)
-        except IOError as error:
+        except FileNotFoundError as error:
             logging.error(error)
+            raise
         finally:
             ftp_client.close()
 
@@ -164,22 +162,21 @@ class Ot2ControllerReal:
         :returns: The return object defined for the command with the following fields:
             request.ReturnValue (Return Value): The returned value.
         """
-        return_value = None
-        # Run command.
-        cmd: str = "." + USER_STORAGE_DIR + request.ProtocolFile.value
-        logging.debug(f"run: {cmd}")
+        is_simulating: bool = request.IsSimulating.value
+        if is_simulating:
+            cmd: str = "python3 -m opentrons.simulate " + USER_STORAGE_DIR + request.ProtocolFile.value
+        else:
+            cmd: str = "python3 -m opentrons.execute " + USER_STORAGE_DIR + request.ProtocolFile.value
+
+        logging.debug(f"run '{cmd}'")
         ssh_stdin, ssh_stdout, ssh_stderr = self.ssh.exec_command(cmd)
         run_ret: int = ssh_stdout.channel.recv_exit_status()
-        output: str = ssh_stdout.readlines()
-        logging.info(output)
-        return_value = Ot2Controller_pb2.RunProtocol_Responses(ReturnValue=silaFW_pb2.Integer(value=run_ret))
+        logging.debug("run returned '" + str(run_ret) + "'")
 
-        # fallback to default
-        if return_value is None:
-            return_value = Ot2Controller_pb2.RunProtocol_Responses(
-                **default_dict['RunProtocol_Responses'])
+        if is_simulating and run_ret != 0:
+            raise ValueError("The simulation of the protocol was not successful.")
 
-        return return_value
+        return Ot2Controller_pb2.RunProtocol_Responses(ReturnValue=silaFW_pb2.Integer(value=run_ret))
 
     def Get_Connection(self, request, context: grpc.ServicerContext) \
             -> Ot2Controller_pb2.Get_Connection_Responses:
@@ -193,17 +190,10 @@ class Ot2ControllerReal:
         :returns: A response object with the following fields:
             request.Connection (Connection): Connection details to the remote OT-2.
         """
-        return_value: Ot2Controller_pb2.Get_Connection_Responses = None
-        connection_info = silaFW_pb2.String(value="Device IP: " + Ot2ControllerReal.__device_ip
-                                                  + ", User: " + Ot2ControllerReal.__device_username)
-        return_value = Ot2Controller_pb2.Get_Connection_Responses(Connection=connection_info)
+        connection_info = silaFW_pb2.String(value="Device IP: " + Ot2ControllerReal._device_ip
+                                                  + ", User: " + Ot2ControllerReal._device_username)
 
-        # fallback to default
-        if return_value is None:
-            return_value = Ot2Controller_pb2.Get_Connection_Responses(
-                **default_dict['Get_Connection_Responses'])
-
-        return return_value
+        return Ot2Controller_pb2.Get_Connection_Responses(Connection=connection_info)
 
     def Get_AvailableProtocols(self, request, context: grpc.ServicerContext) \
             -> Ot2Controller_pb2.Get_AvailableProtocols_Responses:
@@ -217,9 +207,7 @@ class Ot2ControllerReal:
         :returns: A response object with the following fields:
             request.AvailableProtocols (Available Protocols): List of the stored files available on the OT-2.
         """
-        return_value: Ot2Controller_pb2.Get_AvailableProtocols_Responses = None
-
-        # Run command.
+        # Run 'ls' command to collect the files.
         ssh_stdin, ssh_stdout, ssh_stderr = self.ssh.exec_command("ls " + USER_STORAGE_DIR)
         output = ssh_stdout.readlines()
 
@@ -227,14 +215,7 @@ class Ot2ControllerReal:
         for line in output:
             protocol_list.append(silaFW_pb2.String(value=line))
 
-        return_value = Ot2Controller_pb2.Get_AvailableProtocols_Responses(AvailableProtocols=protocol_list)
-
-        # fallback to default
-        if return_value is None:
-            return_value = Ot2Controller_pb2.Get_AvailableProtocols_Responses(
-                **default_dict['Get_AvailableProtocols_Responses'])
-
-        return return_value
+        return Ot2Controller_pb2.Get_AvailableProtocols_Responses(AvailableProtocols=protocol_list)
 
     def Get_AvailableJupyterNotebooks(self, request, context: grpc.ServicerContext) \
             -> Ot2Controller_pb2.Get_AvailableJupyterNotebooks_Responses:
@@ -249,8 +230,7 @@ class Ot2ControllerReal:
             request.AvailableJupyterNotebooks (Available Jupyter Notebooks): List of the stored Jupyter Notebooks
             available on the OT-2.
         """
-        return_value: Ot2Controller_pb2.Get_AvailableJupyterNotebooks_Responses = None
-        # Run command.
+        # Run 'ls' command to collect the files.
         ssh_stdin, ssh_stdout, ssh_stderr = self.ssh.exec_command("ls " + JUPYTER_NOTEBOOK_DIR)
         output = ssh_stdout.readlines()
 
@@ -258,12 +238,4 @@ class Ot2ControllerReal:
         for line in output:
             notebook_list.append(silaFW_pb2.String(value=line))
 
-        return_value = Ot2Controller_pb2.Get_AvailableJupyterNotebooks_Responses(
-            AvailableJupyterNotebooks=notebook_list)
-
-        # fallback to default
-        if return_value is None:
-            return_value = Ot2Controller_pb2.Get_AvailableJupyterNotebooks_Responses(
-                **default_dict['Get_AvailableJupyterNotebooks_Responses'])
-
-        return return_value
+        return Ot2Controller_pb2.Get_AvailableJupyterNotebooks_Responses(AvailableJupyterNotebooks=notebook_list)
