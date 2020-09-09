@@ -1,7 +1,7 @@
 {
   "service_name": "Ot2Controller",
   "service_description": "A SiLA 2 service enabling the execution of python protocols on a Opentrons 2 liquid handler robot.",
-  "service_type": "Liquid Dispenser Robot Protocol Server",
+  "service_type": "OpentronsOt2Controller",
   "authors": "Florian Bauer <florian.bauer.dev@gmail.com>",
   "creation_date": "2020-08-12",
   "version": "0.0.1",
