@@ -11,3 +11,7 @@ __pycache__/
 
 # PyCharm / InteliJ projects folder
 .idea/
+
+# Unused generated files from the silacodegenerator
+/Ot2Controller_client.py
+/Ot2Controller/Ot2Controller_default_arguments.py
