@@ -23,6 +23,7 @@ ________________________________________________________________________
 
 __version__ = "0.0.1"
 
+import io
 import logging
 import os
 import pathlib
@@ -32,6 +33,7 @@ import grpc  # used for type hinting only
 import sila2lib.framework.SiLAFramework_pb2 as silaFW_pb2
 
 from .gRPC import Ot2Controller_pb2 as Ot2Controller_pb2
+from PIL import Image
 
 USER_STORAGE_DIR: str = "/tmp/data/user_storage/"
 JUPYTER_NOTEBOOK_DIR: str = "/tmp/var/lib/jupyter/notebooks/"
@@ -129,17 +131,18 @@ class Ot2ControllerSimulation:
     def RunProtocol(self, request, context: grpc.ServicerContext) \
             -> Ot2Controller_pb2.RunProtocol_Responses:
         """
-        Executes the unobservable command "Run Protocol"s
+        Executes the unobservable command "Run Protocol"
             Runs the given Protocol on the OT-2.
     
         :param request: gRPC request containing the parameters passed:
             request.ProtocolFile (Protocol File): The file name of the Protocol to run.
-            request.IsSimulating (Is Simulating): Defines whether the protocol gets just simulated or actually executed on the device.
+            request.IsSimulating (Is Simulating): Defines whether the protocol gets just simulated or actually executed
+            on the device.
         :param context: gRPC :class:`~grpc.ServicerContext` object providing gRPC-specific information
     
         :returns: The return object defined for the command with the following fields:
-            request.ReturnValue (Return Value): The returned value from the executed protocol. On a simulated execution, only the value 0
-            is indicating a successful simulation.
+            request.ReturnValue (Return Value): The returned value from the executed protocol. On a simulated execution,
+            only the value 0 is indicating a successful simulation.
         """
         cmd: str = "python3 -m opentrons.simulate " + USER_STORAGE_DIR + request.ProtocolFile.value
 
@@ -197,7 +200,8 @@ class Ot2ControllerSimulation:
         :param context: gRPC :class:`~grpc.ServicerContext` object providing gRPC-specific information
     
         :returns: A response object with the following fields:
-            request.AvailableJupyterNotebooks (Available Jupyter Notebooks): List of the stored Jupyter Notebooks available on the OT-2.
+            request.AvailableJupyterNotebooks (Available Jupyter Notebooks): List of the stored Jupyter Notebooks
+            available on the OT-2.
         """
         notebook_list = [
             silaFW_pb2.String(value="dummy_notebook_01.py"),
@@ -205,3 +209,25 @@ class Ot2ControllerSimulation:
             silaFW_pb2.String(value="dummy_notebook_03.py")
         ]
         return Ot2Controller_pb2.Get_AvailableJupyterNotebooks_Responses(AvailableJupyterNotebooks=notebook_list)
+
+    def Get_CameraPicture(self, request, context: grpc.ServicerContext) \
+            -> Ot2Controller_pb2.Get_CameraPicture_Responses:
+        """
+        Requests the unobservable property Camera Picture
+            A current picture from the inside of the OT-2 made with the built-in camera.
+
+        :param request: An empty gRPC request object (properties have no parameters)
+        :param context: gRPC :class:`~grpc.ServicerContext` object providing gRPC-specific information
+
+        :returns: A response object with the following fields:
+            request.CameraPicture (Camera Picture): A current picture from the inside of the OT-2 made with the built-in
+            camera.
+        """
+        payload: str = "BlaBlaBla"
+        byte_stream = bytes(payload, "utf-8")
+
+        cam_pic_struct = Ot2Controller_pb2.Get_CameraPicture_Responses.CameraPicture_Struct(
+            ImageData=silaFW_pb2.Binary(value=byte_stream),
+            ImageTimestamp=silaFW_pb2.Timestamp())
+
+        return Ot2Controller_pb2.Get_CameraPicture_Responses(CameraPicture=cam_pic_struct)

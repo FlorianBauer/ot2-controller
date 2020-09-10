@@ -41,6 +41,42 @@
             </List>
         </DataType>
     </Property>
+    <Property>
+        <Identifier>CameraPicture</Identifier>
+        <DisplayName>Camera Picture</DisplayName>
+        <Description>A current picture from the inside of the OT-2 made with the built-in camera.</Description>
+        <Observable>No</Observable>
+        <DataType>
+            <Structure>
+                <Element>
+                    <Identifier>ImageData</Identifier>
+                    <DisplayName>Image Data</DisplayName>
+                    <Description>The *.jpg image.</Description>
+                    <DataType>
+                        <Constrained>
+                            <DataType>
+                                <Basic>Binary</Basic>
+                            </DataType>
+                            <Constraints>
+                                <ContentType>
+                                    <Type>image</Type>
+                                    <Subtype>jpeg</Subtype>
+                                </ContentType>
+                            </Constraints>
+                        </Constrained>
+                    </DataType>
+                </Element>
+                <Element>
+                    <Identifier>ImageTimestamp</Identifier>
+                    <DisplayName>Image Timestamp</DisplayName>
+                    <Description>The timestamp when the image was taken.</Description>
+                    <DataType>
+                        <Basic>Timestamp</Basic>
+                    </DataType>
+                </Element>
+            </Structure>
+        </DataType>
+    </Property>
     <Command>
         <Identifier>UploadProtocol</Identifier>
         <DisplayName>Upload Protocol</DisplayName>

@@ -239,3 +239,25 @@ class Ot2ControllerReal:
             notebook_list.append(silaFW_pb2.String(value=line))
 
         return Ot2Controller_pb2.Get_AvailableJupyterNotebooks_Responses(AvailableJupyterNotebooks=notebook_list)
+
+    def Get_CameraPicture(self, request, context: grpc.ServicerContext) \
+            -> Ot2Controller_pb2.Get_CameraPicture_Responses:
+        """
+        Requests the unobservable property Camera Picture
+            A current picture from the inside of the OT-2 made with the built-in camera.
+
+        :param request: An empty gRPC request object (properties have no parameters)
+        :param context: gRPC :class:`~grpc.ServicerContext` object providing gRPC-specific information
+
+        :returns: A response object with the following fields:
+            request.CameraPicture (Camera Picture): A current picture from the inside of the OT-2 made with the built-in
+            camera.
+        """
+        payload: str = "BlaBlaBla"
+        byte_stream = bytes(payload, "utf-8")
+
+        cam_pic_struct = Ot2Controller_pb2.Get_CameraPicture_Responses.CameraPicture_Struct(
+            ImageData=silaFW_pb2.Binary(value=byte_stream),
+            ImageTimestamp=silaFW_pb2.Timestamp())
+
+        return Ot2Controller_pb2.Get_CameraPicture_Responses(CameraPicture=cam_pic_struct)

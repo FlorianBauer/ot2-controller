@@ -82,9 +82,7 @@ def parse_command_line():
     parser.add_argument('-t', '--server-type', action='store',
                         default="OpentronsOt2Controller", help='start SiLA server with [server-type]')
     parser.add_argument('-d', '--description', action='store',
-                        default="A SiLA 2 service enabling the execution of python protocols on a Opentrons 2 liquid "
-                                "handler robot.",
-                        help='SiLA server description')
+                        default="A SiLA 2 service enabling the execution of python protocols on a Opentrons 2 liquid handler robot.", help='SiLA server description')
 
     # Encryption
     parser.add_argument('-X', '--encryption', action='store', default=None,

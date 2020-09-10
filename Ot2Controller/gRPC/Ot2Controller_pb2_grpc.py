@@ -46,6 +46,11 @@ class Ot2ControllerStub(object):
                 request_serializer=Ot2Controller__pb2.Get_AvailableJupyterNotebooks_Parameters.SerializeToString,
                 response_deserializer=Ot2Controller__pb2.Get_AvailableJupyterNotebooks_Responses.FromString,
                 )
+        self.Get_CameraPicture = channel.unary_unary(
+                '/sila2.de.fau.dispensing.ot2controller.v1.Ot2Controller/Get_CameraPicture',
+                request_serializer=Ot2Controller__pb2.Get_CameraPicture_Parameters.SerializeToString,
+                response_deserializer=Ot2Controller__pb2.Get_CameraPicture_Responses.FromString,
+                )
 
 
 class Ot2ControllerServicer(object):
@@ -101,6 +106,14 @@ class Ot2ControllerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def Get_CameraPicture(self, request, context):
+        """Camera Picture
+        A current picture from the inside of the OT-2 made with the built-in camera.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_Ot2ControllerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -133,6 +146,11 @@ def add_Ot2ControllerServicer_to_server(servicer, server):
                     servicer.Get_AvailableJupyterNotebooks,
                     request_deserializer=Ot2Controller__pb2.Get_AvailableJupyterNotebooks_Parameters.FromString,
                     response_serializer=Ot2Controller__pb2.Get_AvailableJupyterNotebooks_Responses.SerializeToString,
+            ),
+            'Get_CameraPicture': grpc.unary_unary_rpc_method_handler(
+                    servicer.Get_CameraPicture,
+                    request_deserializer=Ot2Controller__pb2.Get_CameraPicture_Parameters.FromString,
+                    response_serializer=Ot2Controller__pb2.Get_CameraPicture_Responses.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -245,5 +263,22 @@ class Ot2Controller(object):
         return grpc.experimental.unary_unary(request, target, '/sila2.de.fau.dispensing.ot2controller.v1.Ot2Controller/Get_AvailableJupyterNotebooks',
             Ot2Controller__pb2.Get_AvailableJupyterNotebooks_Parameters.SerializeToString,
             Ot2Controller__pb2.Get_AvailableJupyterNotebooks_Responses.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Get_CameraPicture(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/sila2.de.fau.dispensing.ot2controller.v1.Ot2Controller/Get_CameraPicture',
+            Ot2Controller__pb2.Get_CameraPicture_Parameters.SerializeToString,
+            Ot2Controller__pb2.Get_CameraPicture_Responses.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
