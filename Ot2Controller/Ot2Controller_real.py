@@ -24,16 +24,19 @@ ________________________________________________________________________
 __version__ = "0.0.1"
 
 import logging
+from pathlib import Path
+
 import grpc  # used for type hinting only
 import paramiko  # used for SSH connections
 import sila2lib.framework.SiLAFramework_pb2 as silaFW_pb2
-
-from pathlib import Path
+from paramiko import PKey
 from scp import SCPClient, SCPException
+
 from .gRPC import Ot2Controller_pb2 as Ot2Controller_pb2
 
 USER_STORAGE_DIR: str = "~/dummy" + "/data/user_storage/"
 JUPYTER_NOTEBOOK_DIR: str = "~/dummy" + "/var/lib/jupyter/notebooks/"
+SSH_PRIVATE_KEY_FILE: str = "~/.ssh/ot2_ssh_key"
 
 
 # noinspection PyPep8Naming,PyUnusedLocal
@@ -44,8 +47,9 @@ class Ot2ControllerReal:
     """
     _device_ip: str = "127.0.0.1"
     # The the location of the generated private key.
-    # (see https://support.opentrons.com/en/articles/3203681-setting-up-ssh-access-to-your-ot-2)
-    _pkey: str = "~/.ssh/ot2_ssh_key"
+    # https://support.opentrons.com/en/articles/3203681-setting-up-ssh-access-to-your-ot-2
+    # https://hackersandslackers.com/automate-ssh-scp-python-paramiko/
+    _pkey: PKey = paramiko.RSAKey.from_private_key_file(str(Path(SSH_PRIVATE_KEY_FILE).expanduser().resolve()))
 
     def __init__(self):
         """Class initializer"""
@@ -190,8 +194,10 @@ class Ot2ControllerReal:
         :returns: A response object with the following fields:
             request.Connection (Connection): Connection details to the remote OT-2.
         """
-        connection_info = silaFW_pb2.String(value="Device IP: " + Ot2ControllerReal._device_ip
-                                                  + ", User: " + Ot2ControllerReal._device_username)
+        connection_info = silaFW_pb2.String(value="Device IP: "
+                                                  + Ot2ControllerReal._device_ip
+                                                  + ", Key fingerprint: "
+                                                  + Ot2ControllerReal._pkey.get_fingerprint().hex())
 
         return Ot2Controller_pb2.Get_Connection_Responses(Connection=connection_info)
 
