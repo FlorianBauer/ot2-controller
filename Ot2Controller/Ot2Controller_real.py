@@ -251,6 +251,7 @@ class Ot2ControllerReal:
         """
         Requests the unobservable property Camera Picture
             A current picture from the inside of the OT-2 made with the built-in camera.
+            See https://support.opentrons.com/en/articles/2831465-using-the-ot-2-s-camera
 
         :param request: An empty gRPC request object (properties have no parameters)
         :param context: gRPC :class:`~grpc.ServicerContext` object providing gRPC-specific information
@@ -259,11 +260,17 @@ class Ot2ControllerReal:
             request.CameraPicture (Camera Picture): A current picture from the inside of the OT-2 made with the built-in
             camera.
         """
-        payload: str = "BlaBlaBla"
-        byte_stream = bytes(payload, "utf-8")
+        out_image_file: str = "/data/user_storage/tmp_image.jpeg"
+        cmd: str = f"ffmpeg -y -f video4linux2 -s 640x480 -i /dev/video0 -ss 0:0:1 -frames 1 {out_image_file}"
+        logging.debug(f"run '{cmd}'")
+        ssh_stdin, ssh_stdout, ssh_stderr = self.ssh.exec_command(cmd)
+        run_ret: int = ssh_stdout.channel.recv_exit_status()
+        logging.debug("run returned '" + str(run_ret) + "'")
+
+        img_bytes = open(out_image_file, 'rb').read()
 
         cam_pic_struct = Ot2Controller_pb2.Get_CameraPicture_Responses.CameraPicture_Struct(
-            ImageData=silaFW_pb2.Binary(value=byte_stream),
+            ImageData=silaFW_pb2.Binary(value=img_bytes),
             ImageTimestamp=silaFW_pb2.Timestamp())
 
         return Ot2Controller_pb2.Get_CameraPicture_Responses(CameraPicture=cam_pic_struct)
