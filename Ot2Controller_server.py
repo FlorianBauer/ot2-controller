@@ -84,7 +84,8 @@ if __name__ == '__main__':
                               version=__version__,
                               vendor_url="https://www.cs7.tf.fau.de",
                               ip="127.0.0.1", port=50053,
-                              key_file=args.encryption_key, cert_file=args.encryption_cert)
+                              key_file=args.encryption_key, cert_file=args.encryption_cert,
+                              simulation_mode=False)
 
     # remove the pesky SimulationController
     sila_server.SiLAService_feature.implemented_features.pop("SimulationController")
@@ -97,5 +98,14 @@ if __name__ == '__main__':
     sila_server.add_feature(feature_id='Ot2Controller',
                             servicer=sila_server.SiLAService_feature,
                             data_path='meta')
+
+    # FIXME: Monkey patch in the correct Fully Qualified Feature Identifiers. The bug lies inside the SiLAService class
+    #        of the sila_python framework v0.2.5 (2020-09-17, florian.bauer.dev@gmail.com).
+    fqfi_dict = sila_server.SiLAService_feature.implemented_features
+    fqfi_dict["org.silastandard/core/SiLAService/v1"] = fqfi_dict["SiLAService"]
+    del fqfi_dict["SiLAService"]
+    fqfi_dict["de.fau/dispensing/Ot2Controller/v1"] = fqfi_dict["Ot2Controller"]
+    del fqfi_dict["Ot2Controller"]
+
     # start the server
     sila_server.run()
