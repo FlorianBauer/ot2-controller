@@ -23,51 +23,13 @@ ________________________________________________________________________
 """
 __version__ = "0.0.1"
 
-import logging
 import argparse
+import logging
 
 from sila2lib.sila_server import SiLA2Server
+
+from Ot2Controller.Ot2Controller_real import Ot2ControllerReal
 from Ot2Controller.gRPC import Ot2Controller_pb2_grpc
-from Ot2Controller.Ot2Controller_servicer import Ot2Controller
-
-
-class Ot2ControllerServer(SiLA2Server):
-    """
-    A SiLA 2 service enabling the execution of python protocols on a Opentrons 2 liquid handler robot.
-    """
-
-    def __init__(self, cmd_args, simulation_mode: bool = True):
-        """Class initializer"""
-        super().__init__(
-            name=cmd_args.server_name, description=cmd_args.description,
-            server_type=cmd_args.server_type, server_uuid=None,
-            version=__version__,
-            vendor_url="https://www.cs7.tf.fau.de",
-            ip="127.0.0.1", port=50053,
-            key_file=cmd_args.encryption_key, cert_file=cmd_args.encryption_cert
-        )
-
-        logging.info(
-            "Starting SiLA2 server with server name: {server_name}".format(
-                server_name=cmd_args.server_name
-            )
-        )
-
-        # registering features
-        #  Register Ot2Controller
-        self.Ot2Controller_servicer = Ot2Controller(simulation_mode=self.simulation_mode)
-        Ot2Controller_pb2_grpc.add_Ot2ControllerServicer_to_server(
-            self.Ot2Controller_servicer,
-            self.grpc_server
-        )
-        self.add_feature(feature_id='Ot2Controller',
-                         servicer=self.Ot2Controller_servicer,
-                         data_path='meta')
-
-        self.simulation_mode = simulation_mode
-
-        # starting and running the gRPC/SiLA2 server
-        self.run()
 
 
 def parse_command_line():
@@ -82,7 +44,8 @@ def parse_command_line():
     parser.add_argument('-t', '--server-type', action='store',
                         default="OpentronsOt2Controller", help='start SiLA server with [server-type]')
     parser.add_argument('-d', '--description', action='store',
-                        default="A SiLA 2 service enabling the execution of python protocols on a Opentrons 2 liquid handler robot.", help='SiLA server description')
+                        default="A SiLA 2 service enabling the execution of python protocols on a Opentrons 2 liquid "
+                                "handler robot.", help='SiLA server description')
 
     # Encryption
     parser.add_argument('-X', '--encryption', action='store', default=None,
@@ -116,5 +79,23 @@ if __name__ == '__main__':
 
     args = parse_command_line()
 
-    # generate SiLA2Server
-    sila_server = Ot2ControllerServer(cmd_args=args, simulation_mode=True)
+    sila_server = SiLA2Server(name=args.server_name, description=args.description,
+                              server_type=args.server_type, server_uuid=None,
+                              version=__version__,
+                              vendor_url="https://www.cs7.tf.fau.de",
+                              ip="127.0.0.1", port=50053,
+                              key_file=args.encryption_key, cert_file=args.encryption_cert)
+
+    # remove the pesky SimulationController
+    sila_server.SiLAService_feature.implemented_features.pop("SimulationController")
+
+    # add the actual OT2-Controller
+    ot2_controller = Ot2ControllerReal()
+    Ot2Controller_pb2_grpc.add_Ot2ControllerServicer_to_server(
+        ot2_controller,
+        sila_server.grpc_server)
+    sila_server.add_feature(feature_id='Ot2Controller',
+                            servicer=sila_server.SiLAService_feature,
+                            data_path='meta')
+    # start the server
+    sila_server.run()

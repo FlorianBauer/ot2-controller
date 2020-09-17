@@ -32,15 +32,14 @@ import sila2lib.framework.SiLAFramework_pb2 as silaFW_pb2
 from paramiko import PKey
 from scp import SCPClient, SCPException
 
-from .gRPC import Ot2Controller_pb2 as Ot2Controller_pb2
+from .gRPC import Ot2Controller_pb2 as Ot2Controller_pb2, Ot2Controller_pb2_grpc
 
 USER_STORAGE_DIR: str = "~/dummy" + "/data/user_storage/"
 JUPYTER_NOTEBOOK_DIR: str = "~/dummy" + "/var/lib/jupyter/notebooks/"
 SSH_PRIVATE_KEY_FILE: str = "~/.ssh/ot2_ssh_key"
 
 
-# noinspection PyPep8Naming,PyUnusedLocal
-class Ot2ControllerReal:
+class Ot2ControllerReal(Ot2Controller_pb2_grpc.Ot2ControllerServicer):
     """
     Implementation of the *OT-2 Controller* in *Real* mode
         A SiLA 2 service enabling the execution of python protocols on a Opentrons 2 liquid handler robot.
