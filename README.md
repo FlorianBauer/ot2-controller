@@ -14,16 +14,25 @@ A [SiLA 2](https://sila-standard.com/) complaint controller for an Opentrons
 
 ## Installation
 
-Use the generated key from step 2 and register it on the client (may require `sudo` 
-privileges).
+Use the generated key from step 2 and register it on the client (may require `sudo` privileges).
 ```
 ssh-copy-id -i ~/.ssh/ot2_ssh_key `whoami`@`hostname`
 # e.g. sudo ssh-copy-id -i ~/.ssh/ot2_ssh_key username@my_host.org
 ```
+Ensure the package `openssh-server` is installed. If not, install with `apt install openssh-server`.
 
 _Some additional useful links for troubleshooting:_
 * https://hackersandslackers.com/automate-ssh-scp-python-paramiko/
 * https://askubuntu.com/questions/685890/ssh-connect-t-host-slave-1-port-22-connection-refused
+
+To add default encryption, generate a sefl-signed certificate:
+```
+openssl req -x509 -newkey rsa:4096 -keyout sila_server.key -out sila_server.crt -days 365 -subj '/CN=localhost' -nodes
+```
+
+Place the two files `sila_server.crt` and a `sila_server.key` in the same directory as the Python server and they get 
+selected on start-up by default.
+
 
 ## Start the Server
 
