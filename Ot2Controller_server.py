@@ -84,7 +84,6 @@ if __name__ == '__main__':
                               version=__version__,
                               vendor_url="https://www.cs7.tf.fau.de",
                               ip="127.0.0.1", port=50053,
-                              key_file=args.encryption_key, cert_file=args.encryption_cert,
                               simulation_mode=False)
 
     # remove the pesky SimulationController
