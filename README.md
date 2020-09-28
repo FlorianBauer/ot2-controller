@@ -23,6 +23,7 @@ ssh-copy-id -i ~/.ssh/ot2_ssh_key `whoami`@`hostname`
 
 _Some additional useful links for troubleshooting:_
 * https://hackersandslackers.com/automate-ssh-scp-python-paramiko/
+* https://askubuntu.com/questions/685890/ssh-connect-t-host-slave-1-port-22-connection-refused
 
 ## Start the Server
 
