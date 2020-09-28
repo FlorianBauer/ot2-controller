@@ -15,3 +15,8 @@ __pycache__/
 # Unused generated files from the silacodegenerator
 /Ot2Controller_client.py
 /Ot2Controller/Ot2Controller_default_arguments.py
+
+# Key and cert files
+*.crt
+*.cert
+*.key
