@@ -39,6 +39,8 @@ def parse_command_line():
     parser = argparse.ArgumentParser(description="A SiLA2 service: Ot2Controller")
 
     # Simple arguments for the server identification
+    parser.add_argument('-a', '--ip-address', action='store',
+                        default=None, help='IP address of the OT-2 device', required=True)
     parser.add_argument('-s', '--server-name', action='store',
                         default="Ot2Controller", help='start SiLA server with [server-name]')
     parser.add_argument('-t', '--server-type', action='store',
@@ -68,7 +70,7 @@ def parse_command_line():
         if parsed_args.encryption_key is None:
             parsed_args.encryption_key = parsed_args.encryption + '.key'
         if parsed_args.encryption_cert is None:
-            parsed_args.encryption_cert = parsed_args.encryption + '.cert'
+            parsed_args.encryption_cert = parsed_args.encryption + '.crt'
 
     return parsed_args
 
@@ -90,7 +92,7 @@ if __name__ == '__main__':
     sila_server.SiLAService_feature.implemented_features.pop("SimulationController")
 
     # add the actual OT2-Controller
-    ot2_controller = Ot2ControllerReal()
+    ot2_controller = Ot2ControllerReal(device_ip=args.ip_address)
     Ot2Controller_pb2_grpc.add_Ot2ControllerServicer_to_server(
         ot2_controller,
         sila_server.grpc_server)

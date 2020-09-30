@@ -34,9 +34,10 @@ from scp import SCPClient, SCPException
 
 from .gRPC import Ot2Controller_pb2 as Ot2Controller_pb2, Ot2Controller_pb2_grpc
 
-USER_STORAGE_DIR: str = "~/dummy" + "/data/user_storage/"
-JUPYTER_NOTEBOOK_DIR: str = "~/dummy" + "/var/lib/jupyter/notebooks/"
-SSH_PRIVATE_KEY_FILE: str = "~/.ssh/ot2_ssh_key"
+USER_STORAGE_DIR: str = "/data/user_storage/"
+JUPYTER_NOTEBOOK_DIR: str = "/var/lib/jupyter/notebooks/"
+DEVICE_USERNAME: str = "root"
+DEFAULT_SSH_PRIVATE_KEY: str = "~/.ssh/ot2_ssh_key"
 
 
 class Ot2ControllerReal(Ot2Controller_pb2_grpc.Ot2ControllerServicer):
@@ -44,22 +45,34 @@ class Ot2ControllerReal(Ot2Controller_pb2_grpc.Ot2ControllerServicer):
     Implementation of the *OT-2 Controller* in *Real* mode
         A SiLA 2 service enabling the execution of python protocols on a Opentrons 2 liquid handler robot.
     """
-    _device_ip: str = "127.0.0.1"
-    # The the location of the generated private key.
-    # https://support.opentrons.com/en/articles/3203681-setting-up-ssh-access-to-your-ot-2
-    # https://hackersandslackers.com/automate-ssh-scp-python-paramiko/
-    _pkey: PKey = paramiko.RSAKey.from_private_key_file(str(Path(SSH_PRIVATE_KEY_FILE).expanduser().resolve()))
+    #: IP address of the device to connect to.
+    device_ip: str
+    #: Path to the SSH private key file.
+    pkey_path: str
+    #: The actual private key used by Paramiko.
+    _pkey: PKey
 
-    def __init__(self):
+    def __init__(self,
+                 device_ip: str = None,
+                 pkey_path: str = None):
         """Class initializer"""
+        # The the location of the generated private key.
+        # https://support.opentrons.com/en/articles/3203681-setting-up-ssh-access-to-your-ot-2
+        # https://hackersandslackers.com/automate-ssh-scp-python-paramiko/
+        if pkey_path is None:
+            _pkey = paramiko.RSAKey.from_private_key_file(str(Path(DEFAULT_SSH_PRIVATE_KEY).expanduser().resolve()))
+        else:
+            _pkey = paramiko.RSAKey.from_private_key_file(str(Path(pkey_path).expanduser().resolve()))
+
         self.ssh = paramiko.SSHClient()
         # Load SSH host keys.
         self.ssh.load_system_host_keys()
         # Add SSH host key automatically if needed.
         self.ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         # Connect to device using key file authentication.
-        self.ssh.connect(hostname=Ot2ControllerReal._device_ip,
-                         pkey=Ot2ControllerReal._pkey,
+        self.ssh.connect(hostname=device_ip,
+                         username=DEVICE_USERNAME,
+                         pkey=_pkey,
                          look_for_keys=False)
         logging.debug('Started server in mode: {mode}'.format(mode='Real'))
 
@@ -194,8 +207,8 @@ class Ot2ControllerReal(Ot2Controller_pb2_grpc.Ot2ControllerServicer):
             request.Connection (Connection): Connection details to the remote OT-2.
         """
         connection_info = silaFW_pb2.String(value="Device IP: "
-                                                  + Ot2ControllerReal._device_ip
-                                                  + ", Key fingerprint: "
+                                                  + Ot2ControllerReal.device_ip
+                                                  + ", SSH key fingerprint: "
                                                   + Ot2ControllerReal._pkey.get_fingerprint().hex())
 
         return Ot2Controller_pb2.Get_Connection_Responses(Connection=connection_info)
@@ -259,14 +272,24 @@ class Ot2ControllerReal(Ot2Controller_pb2_grpc.Ot2ControllerServicer):
             request.CameraPicture (Camera Picture): A current picture from the inside of the OT-2 made with the built-in
             camera.
         """
-        out_image_file: str = "/data/user_storage/tmp_image.jpeg"
+        out_image_file: str = "/tmp/tmp_image.jpeg"
         cmd: str = f"ffmpeg -y -f video4linux2 -s 640x480 -i /dev/video0 -ss 0:0:1 -frames 1 {out_image_file}"
         logging.debug(f"run '{cmd}'")
         ssh_stdin, ssh_stdout, ssh_stderr = self.ssh.exec_command(cmd)
         run_ret: int = ssh_stdout.channel.recv_exit_status()
         logging.debug("run returned '" + str(run_ret) + "'")
 
-        img_bytes = open(out_image_file, 'rb').read()
+        scp = SCPClient(self.ssh.get_transport())
+        try:
+            scp.get(out_image_file, "/tmp/tmp_image.jpeg", recursive=False)
+        except SCPException as error:
+            logging.error(error)
+            raise
+        finally:
+            scp.close()
+
+        logging.debug(f"Downloaded {out_image_file} to /tmp/tmp_image.jpeg")
+        img_bytes = open("/tmp/tmp_image.jpeg", 'rb').read()
 
         cam_pic_struct = Ot2Controller_pb2.Get_CameraPicture_Responses.CameraPicture_Struct(
             ImageData=silaFW_pb2.Binary(value=img_bytes),
