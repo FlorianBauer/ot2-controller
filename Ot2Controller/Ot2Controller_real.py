@@ -227,11 +227,12 @@ class Ot2ControllerReal(Ot2Controller_pb2_grpc.Ot2ControllerServicer):
         """
         # Run 'ls' command to collect the files.
         ssh_stdin, ssh_stdout, ssh_stderr = self.ssh.exec_command("ls " + USER_STORAGE_DIR)
-        output = ssh_stdout.readlines()
+        output: str = ssh_stdout.readlines()
 
         protocol_list = []
         for line in output:
-            protocol_list.append(silaFW_pb2.String(value=line))
+            if line.endswith(".py"):
+                protocol_list.append(silaFW_pb2.String(value=line))
 
         return Ot2Controller_pb2.Get_AvailableProtocols_Responses(AvailableProtocols=protocol_list)
 
