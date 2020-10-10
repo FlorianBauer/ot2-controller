@@ -50,19 +50,22 @@ class Ot2ControllerReal(Ot2Controller_pb2_grpc.Ot2ControllerServicer):
     #: Path to the SSH private key file.
     pkey_path: str
     #: The actual private key used by Paramiko.
-    _pkey: PKey
+    pkey: PKey
 
     def __init__(self,
                  device_ip: str = None,
                  pkey_path: str = None):
         """Class initializer"""
+        self.device_ip = device_ip
+        self.pkey_path = pkey_path
+
         # The the location of the generated private key.
         # https://support.opentrons.com/en/articles/3203681-setting-up-ssh-access-to-your-ot-2
         # https://hackersandslackers.com/automate-ssh-scp-python-paramiko/
         if pkey_path is None:
-            _pkey = paramiko.RSAKey.from_private_key_file(str(Path(DEFAULT_SSH_PRIVATE_KEY).expanduser().resolve()))
+            self.pkey = paramiko.RSAKey.from_private_key_file(str(Path(DEFAULT_SSH_PRIVATE_KEY).expanduser().resolve()))
         else:
-            _pkey = paramiko.RSAKey.from_private_key_file(str(Path(pkey_path).expanduser().resolve()))
+            self.pkey = paramiko.RSAKey.from_private_key_file(str(Path(pkey_path).expanduser().resolve()))
 
         self.ssh = paramiko.SSHClient()
         # Load SSH host keys.
@@ -72,7 +75,7 @@ class Ot2ControllerReal(Ot2Controller_pb2_grpc.Ot2ControllerServicer):
         # Connect to device using key file authentication.
         self.ssh.connect(hostname=device_ip,
                          username=DEVICE_USERNAME,
-                         pkey=_pkey,
+                         pkey=self.pkey,
                          look_for_keys=False)
         logging.debug('Started server in mode: {mode}'.format(mode='Real'))
 
@@ -207,9 +210,9 @@ class Ot2ControllerReal(Ot2Controller_pb2_grpc.Ot2ControllerServicer):
             request.Connection (Connection): Connection details to the remote OT-2.
         """
         connection_info = silaFW_pb2.String(value="Device IP: "
-                                                  + Ot2ControllerReal.device_ip
+                                                  + self.device_ip
                                                   + ", SSH key fingerprint: "
-                                                  + Ot2ControllerReal._pkey.get_fingerprint().hex())
+                                                  + self.pkey.get_fingerprint().hex())
 
         return Ot2Controller_pb2.Get_Connection_Responses(Connection=connection_info)
 
