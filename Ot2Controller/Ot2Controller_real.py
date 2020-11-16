@@ -257,9 +257,9 @@ class Ot2ControllerReal(Ot2Controller_pb2_grpc.Ot2ControllerServicer):
         ssh_stdin, ssh_stdout, ssh_stderr = self.ssh.exec_command("ls " + JUPYTER_NOTEBOOK_DIR)
         output = ssh_stdout.readlines()
 
-        notebook_list = []
+        notebook_list: str = []
         for line in output:
-            notebook_list.append(silaFW_pb2.String(value=line))
+            notebook_list.append(silaFW_pb2.String(value=line.strip()))
 
         return Ot2Controller_pb2.Get_AvailableJupyterNotebooks_Responses(AvailableJupyterNotebooks=notebook_list)
 
