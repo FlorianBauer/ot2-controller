@@ -232,8 +232,9 @@ class Ot2ControllerReal(Ot2Controller_pb2_grpc.Ot2ControllerServicer):
         ssh_stdin, ssh_stdout, ssh_stderr = self.ssh.exec_command("ls " + USER_STORAGE_DIR)
         output: str = ssh_stdout.readlines()
 
-        protocol_list = []
+        protocol_list: str = []
         for line in output:
+            line = line.strip()
             if line.endswith(".py"):
                 protocol_list.append(silaFW_pb2.String(value=line))
 
