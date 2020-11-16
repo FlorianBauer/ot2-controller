@@ -13,8 +13,8 @@ git clone https://github.com/FlorianBauer/ot2-controller.git /path/to/ot2-contro
 
 **2. Establish a SSH connection:**  
 Before the actual installation, a SSH connection to the OT-2 device has to be established.
-This requires to generate a pair of SSH keys, as well as the configuration of OT-2 device itself.
-To do this, please follow the steps described in this article:
+This requires to generate a pair of SSH keys, as well as the configuration of the OT-2 device 
+itself. To do this, please follow the steps described in this article:
 [SSH for OT-2](https://support.opentrons.com/en/articles/3203681-setting-up-ssh-access-to-your-ot-2)
 
 **3. Set up and source a Python environment _(Optional but highly recommended)_:**  
