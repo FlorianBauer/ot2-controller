@@ -23,6 +23,7 @@ ________________________________________________________________________
 
 __version__ = "0.0.1"
 
+import datetime
 import logging
 from pathlib import Path
 
@@ -296,8 +297,18 @@ class Ot2ControllerReal(Ot2Controller_pb2_grpc.Ot2ControllerServicer):
         logging.debug(f"Downloaded {out_image_file} to /tmp/tmp_image.jpeg")
         img_bytes = open("/tmp/tmp_image.jpeg", 'rb').read()
 
+        ts: datetime = datetime.datetime.now(datetime.timezone.utc)
+        timezone = silaFW_pb2.Timezone(hours=0, minutes=0)
+        timestamp = silaFW_pb2.Timestamp(year=ts.year,
+                                         month=ts.month,
+                                         day=ts.day,
+                                         hour=ts.hour,
+                                         minute=ts.minute,
+                                         second=ts.second,
+                                         timezone=timezone)
+
         cam_pic_struct = Ot2Controller_pb2.Get_CameraPicture_Responses.CameraPicture_Struct(
             ImageData=silaFW_pb2.Binary(value=img_bytes),
-            ImageTimestamp=silaFW_pb2.Timestamp())
+            ImageTimestamp=timestamp)
 
         return Ot2Controller_pb2.Get_CameraPicture_Responses(CameraPicture=cam_pic_struct)
