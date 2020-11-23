@@ -237,7 +237,7 @@ class Ot2ControllerReal(Ot2Controller_pb2_grpc.Ot2ControllerServicer):
         ssh_stdin, ssh_stdout, ssh_stderr = self.ssh.exec_command("ls " + USER_STORAGE_DIR)
         output: str = ssh_stdout.readlines()
 
-        protocol_list: str = []
+        protocol_list = []
         for line in output:
             line = line.strip()
             if line.endswith(".py"):
@@ -262,7 +262,7 @@ class Ot2ControllerReal(Ot2Controller_pb2_grpc.Ot2ControllerServicer):
         ssh_stdin, ssh_stdout, ssh_stderr = self.ssh.exec_command("ls " + JUPYTER_NOTEBOOK_DIR)
         output = ssh_stdout.readlines()
 
-        notebook_list: str = []
+        notebook_list = []
         for line in output:
             notebook_list.append(silaFW_pb2.String(value=line.strip()))
 
