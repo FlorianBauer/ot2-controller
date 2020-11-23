@@ -154,17 +154,21 @@ class Ot2ControllerReal(Ot2Controller_pb2_grpc.Ot2ControllerServicer):
         :returns: The return object defined for the command with the following fields:
             request.EmptyResponse (Empty Response): An empty response data type used if no response is required.
         """
-        file: str = str(Path(USER_STORAGE_DIR + request.ProtocolFile.value).expanduser().resolve())
-        logging.debug(f"remove: {file}")
-        ftp_client = self.ssh.open_sftp()
+        protocol: str = request.ProtocolFile.value.strip()
+        if not protocol.endswith(".py"):
+            raise ValueError("The file is not a python protocol.")
 
-        try:
-            ftp_client.remove(file)
-        except FileNotFoundError as error:
-            logging.error(error)
-            raise
-        finally:
-            ftp_client.close()
+        file: str = str(Path(USER_STORAGE_DIR + protocol))
+        logging.debug(f"remove: {file}")
+
+        ssh_stdin, ssh_stdout, ssh_stderr = self.ssh.exec_command("rm " + file)
+        # TODO: remove debug logs on release
+        logging.debug(ssh_stdout.readlines())
+        logging.debug(ssh_stderr.readlines())
+        remove_ret: int = ssh_stdout.channel.recv_exit_status()
+        logging.debug("remove returned '" + str(remove_ret) + "'")
+        if remove_ret != 0:
+            raise ValueError(f"The removal of the file '{file}' was not successful.")
 
         return Ot2Controller_pb2.RemoveProtocol_Responses()
 
