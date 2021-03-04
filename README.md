@@ -6,24 +6,31 @@ A [SiLA 2](https://sila-standard.com/) complaint controller for an Opentrons
 
 ## Requirements
 
-**1. Clone this git repository:**  
+**1. Install the [sila2lib](https://gitlab.com/SiLA2/sila_python/-/tree/feature/silacodegenerator-0.3) library in version 0.3 or higher:**  
+Checkout the newest version from the `feature/silacodegenerator-0.3` branch.
+```
+https://gitlab.com/SiLA2/sila_python.git -b feature/silacodegenerator-0.3
+```
+Follow further with the installation instructions described at the [sila2lib repositroy](https://gitlab.com/SiLA2/sila_python/-/tree/feature/silacodegenerator-0.3#installation).
+
+**2. Clone this git repository:**  
 ```
 git clone https://github.com/FlorianBauer/ot2-controller.git /path/to/ot2-controller/
 ```
 
-**2. Establish a SSH connection:**  
+**3. Establish a SSH connection:**  
 Before the actual installation, a SSH connection to the OT-2 device has to be established.
 This requires to generate a pair of SSH keys, as well as the configuration of the OT-2 device 
 itself. To do this, please follow the steps described in this article:
 [SSH for OT-2](https://support.opentrons.com/en/articles/3203681-setting-up-ssh-access-to-your-ot-2)
 
-**3. Set up and source a Python environment _(Optional but highly recommended)_:**  
+**4. (Optional) Set up and source a Python environment (or use the `venv` from step 1):**  
 ```
 python3 -m venv /path/to/ot2-controller
 source /path/to/ot2-controller/venv/bin/activate
 ```
 
-**4. Install depending Python packages:**  
+**5. Install dependant Python packages:**  
 ```
 pip install -r /path/to/ot2-controller/requirements.txt
 ```
@@ -31,7 +38,7 @@ pip install -r /path/to/ot2-controller/requirements.txt
 
 ## Installation
 
-Use the generated key from step 2 and register it on the client (may require `sudo` privileges).
+Use the generated key from step 3 and register it on the client (may require `sudo` privileges).
 ```
 ssh-copy-id -i ~/.ssh/ot2_ssh_key `whoami`@`hostname`
 # e.g. sudo ssh-copy-id -i ~/.ssh/ot2_ssh_key username@my_host.org
@@ -49,7 +56,7 @@ openssl req -x509 -newkey rsa:4096 -keyout sila_server.key -out sila_server.crt 
 ```
 
 Place the two files `sila_server.crt` and a `sila_server.key` in the same directory as the Python 
-server and they get selected on start-up by default.
+server, and they get selected on start-up by default.
 
 
 ## Start the Server
@@ -69,4 +76,4 @@ the OT-2 device via SSH. Since the OT-2 robot itself is also running a Linux OS 
 [build-in Raspberry Pi 3+](https://support.opentrons.com/en/articles/2715311-integrating-the-ot-2-with-other-lab-equipment), 
 it may be possible to install the SiLA server and the corresponding 
 [sila_python](https://gitlab.com/SiLA2/sila_python#installation) libraries on to the OT-2 directly. 
-Pull requests and instructions regarding to this are gladly welcome.
+Pull requests and instructions regarding this are gladly welcome.
