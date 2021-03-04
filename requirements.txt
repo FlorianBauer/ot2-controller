@@ -2,4 +2,4 @@ opentrons==3.20.1
 opentrons-shared-data==3.20.1
 paramiko==2.7.2
 scp==0.13.2
-sila2lib>=0.2.5
+sila2lib>=0.3.4

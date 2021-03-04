@@ -7,7 +7,7 @@ from . import Ot2Controller_pb2 as Ot2Controller__pb2
 
 class Ot2ControllerStub(object):
     """Feature: OT-2 Controller
-    A SiLA 2 complaint controller for an OT-2 Liquid Handler robot.
+    A SiLA 2 complaint controller for an OT-2 liquid handler.
     """
 
     def __init__(self, channel):
@@ -41,11 +41,6 @@ class Ot2ControllerStub(object):
                 request_serializer=Ot2Controller__pb2.Get_AvailableProtocols_Parameters.SerializeToString,
                 response_deserializer=Ot2Controller__pb2.Get_AvailableProtocols_Responses.FromString,
                 )
-        self.Get_AvailableJupyterNotebooks = channel.unary_unary(
-                '/sila2.de.fau.dispensing.ot2controller.v1.Ot2Controller/Get_AvailableJupyterNotebooks',
-                request_serializer=Ot2Controller__pb2.Get_AvailableJupyterNotebooks_Parameters.SerializeToString,
-                response_deserializer=Ot2Controller__pb2.Get_AvailableJupyterNotebooks_Responses.FromString,
-                )
         self.Get_CameraPicture = channel.unary_unary(
                 '/sila2.de.fau.dispensing.ot2controller.v1.Ot2Controller/Get_CameraPicture',
                 request_serializer=Ot2Controller__pb2.Get_CameraPicture_Parameters.SerializeToString,
@@ -55,12 +50,12 @@ class Ot2ControllerStub(object):
 
 class Ot2ControllerServicer(object):
     """Feature: OT-2 Controller
-    A SiLA 2 complaint controller for an OT-2 Liquid Handler robot.
+    A SiLA 2 complaint controller for an OT-2 liquid handler.
     """
 
     def UploadProtocol(self, request, context):
         """Upload Protocol
-        Uploads the given Protocol to the "/data/user_storage" dir on the OT-2.
+        Uploads the given Protocol to the "/data/user_storage" directory on the OT-2.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -68,7 +63,7 @@ class Ot2ControllerServicer(object):
 
     def RemoveProtocol(self, request, context):
         """Remove Protocol
-        Removes the given Protocol from the "/data/user_storage" dir on the OT-2.
+        Removes the given Protocol from the "/data/user_storage" directory on the OT-2.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -93,14 +88,6 @@ class Ot2ControllerServicer(object):
     def Get_AvailableProtocols(self, request, context):
         """Available Protocols
         List of the stored files available on the OT-2.
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def Get_AvailableJupyterNotebooks(self, request, context):
-        """Available Jupyter Notebooks
-        List of the stored Jupyter Notebooks available on the OT-2.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -142,11 +129,6 @@ def add_Ot2ControllerServicer_to_server(servicer, server):
                     request_deserializer=Ot2Controller__pb2.Get_AvailableProtocols_Parameters.FromString,
                     response_serializer=Ot2Controller__pb2.Get_AvailableProtocols_Responses.SerializeToString,
             ),
-            'Get_AvailableJupyterNotebooks': grpc.unary_unary_rpc_method_handler(
-                    servicer.Get_AvailableJupyterNotebooks,
-                    request_deserializer=Ot2Controller__pb2.Get_AvailableJupyterNotebooks_Parameters.FromString,
-                    response_serializer=Ot2Controller__pb2.Get_AvailableJupyterNotebooks_Responses.SerializeToString,
-            ),
             'Get_CameraPicture': grpc.unary_unary_rpc_method_handler(
                     servicer.Get_CameraPicture,
                     request_deserializer=Ot2Controller__pb2.Get_CameraPicture_Parameters.FromString,
@@ -161,7 +143,7 @@ def add_Ot2ControllerServicer_to_server(servicer, server):
  # This class is part of an EXPERIMENTAL API.
 class Ot2Controller(object):
     """Feature: OT-2 Controller
-    A SiLA 2 complaint controller for an OT-2 Liquid Handler robot.
+    A SiLA 2 complaint controller for an OT-2 liquid handler.
     """
 
     @staticmethod
@@ -246,23 +228,6 @@ class Ot2Controller(object):
         return grpc.experimental.unary_unary(request, target, '/sila2.de.fau.dispensing.ot2controller.v1.Ot2Controller/Get_AvailableProtocols',
             Ot2Controller__pb2.Get_AvailableProtocols_Parameters.SerializeToString,
             Ot2Controller__pb2.Get_AvailableProtocols_Responses.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def Get_AvailableJupyterNotebooks(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/sila2.de.fau.dispensing.ot2controller.v1.Ot2Controller/Get_AvailableJupyterNotebooks',
-            Ot2Controller__pb2.Get_AvailableJupyterNotebooks_Parameters.SerializeToString,
-            Ot2Controller__pb2.Get_AvailableJupyterNotebooks_Responses.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

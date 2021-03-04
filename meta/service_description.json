@@ -1,11 +1,11 @@
 {
   "service_name": "Ot2Controller",
-  "service_description": "A SiLA 2 service enabling the execution of python protocols on a Opentrons 2 liquid handler robot.",
+  "service_description": "A SiLA 2 service enabling the execution of python protocols on a Opentrons 2 liquid handler.",
   "service_type": "OpentronsOt2Controller",
   "authors": "Florian Bauer <florian.bauer.dev@gmail.com>",
-  "creation_date": "2020-08-12",
-  "version": "0.0.1",
-  "vendor_url": "https://www.cs7.tf.fau.de",
+  "creation_date": "2021-03-04",
+  "version": "0.1.0",
+  "vendor_url": "https://github.com/FlorianBauer/ot2-controller",
   "SiLA_standard_feature_list": [
     "SiLAService"
   ],
