@@ -12,7 +12,7 @@
   "SiLA_feature_list": [
     "Ot2Controller"
   ],
-  "communication_port": "50053",
+  "communication_port": "50064",
   "IP_address": "127.0.0.1",
   "hostname": "localhost"
 }

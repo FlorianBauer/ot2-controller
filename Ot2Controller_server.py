@@ -83,7 +83,7 @@ if __name__ == '__main__':
                               server_type=args.server_type, server_uuid=None,
                               version=__version__,
                               vendor_url="https://github.com/FlorianBauer/ot2-controller",
-                              ip="127.0.0.1", port=50053,
+                              ip="127.0.0.1", port=50064,
                               simulation_mode=False)
 
     # remove the pesky SimulationController

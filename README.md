@@ -64,7 +64,7 @@ server, and they get selected on start-up by default.
 Now execute the `Ot2Controller_server.py` script with the corresponding OT-2 device IP (e.g. with 
 `python3 -m /path/to/ot2-controller/OtController_server.py -a 169.254.92.42`).
 
-The SiLA server should now be available on localhost (`127.0.0.1`) on the port `50053`.
+The SiLA server should now be available on localhost (`127.0.0.1`) on the port `50064`.
 
 Terminate the server with **[Ctrl]+[c]** or by typing `stop` into the running terminal window.
 
