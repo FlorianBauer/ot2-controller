@@ -9,31 +9,32 @@ A [SiLA 2](https://sila-standard.com/) complaint controller for an Opentrons
 **1. Install the [sila2lib](https://gitlab.com/SiLA2/sila_python/-/tree/feature/silacodegenerator-0.3) library in version 0.3 or higher:**  
 Checkout the newest version from the `feature/silacodegenerator-0.3` branch.
 ```
-https://gitlab.com/SiLA2/sila_python.git -b feature/silacodegenerator-0.3
+git clone https://gitlab.com/SiLA2/sila_python.git -b feature/silacodegenerator-0.3
 ```
 Follow further with the installation instructions described at the [sila2lib repositroy](https://gitlab.com/SiLA2/sila_python/-/tree/feature/silacodegenerator-0.3#installation).
 
 **2. Clone this git repository:**  
 ```
-git clone https://github.com/FlorianBauer/ot2-controller.git /path/to/ot2-controller/
+git clone https://github.com/FlorianBauer/ot2-controller.git
+cd ot-controller
 ```
 
-**3. Establish a SSH connection:**  
+**3. (Optional) Set up and source a Python environment:**  
+```
+python3 -m venv ./venv
+source venv/bin/activate
+```
+
+**4. Install dependant Python packages:**  
+```
+pip install -r requirements.txt
+```
+
+**5. Establish a SSH connection:**  
 Before the actual installation, a SSH connection to the OT-2 device has to be established.
 This requires to generate a pair of SSH keys, as well as the configuration of the OT-2 device 
 itself. To do this, please follow the steps described in this article:
 [SSH for OT-2](https://support.opentrons.com/en/articles/3203681-setting-up-ssh-access-to-your-ot-2)
-
-**4. (Optional) Set up and source a Python environment (or use the `venv` from step 1):**  
-```
-python3 -m venv /path/to/ot2-controller
-source /path/to/ot2-controller/venv/bin/activate
-```
-
-**5. Install dependant Python packages:**  
-```
-pip install -r /path/to/ot2-controller/requirements.txt
-```
 
 
 ## Installation
