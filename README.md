@@ -7,6 +7,7 @@ A [SiLA 2](https://sila-standard.com/) complaint controller for an Opentrons
 ## Requirements
 
 **1. Install the [sila2lib](https://gitlab.com/SiLA2/sila_python/-/tree/feature/silacodegenerator-0.3) library in version 0.3 or higher:**  
+Ensure the `python3-distutils` package is installed (install with `apt install python3-distutils` if not).
 Checkout the newest version from the `feature/silacodegenerator-0.3` branch.
 ```
 git clone https://gitlab.com/SiLA2/sila_python.git -b feature/silacodegenerator-0.3
