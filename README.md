@@ -1,8 +1,7 @@
 # ot2-controller
 
-A [SiLA 2](https://sila-standard.com/) complaint controller for an Opentrons 
-[OT-2 Liquid Handler](https://opentrons.com/ot-2/) robot.
-
+A [SiLA 2](https://sila-standard.com/) complaint controller for an Opentrons [OT-2 Liquid Handler](https://opentrons.com/ot-2/).
+For a short function overview, and a description on how to use this software, take a look into the [User Guide](doc/UserGuide.md).
 
 ## Requirements
 
@@ -69,6 +68,8 @@ Now execute the `Ot2Controller_server.py` script with the corresponding OT-2 dev
 The SiLA server should now be available on localhost (`127.0.0.1`) on the port `50064`.
 
 Terminate the server with **[Ctrl]+[c]** or by typing `stop` into the running terminal window.
+
+A more detailed description can be found in the [User Guide](doc/UserGuide.md).
 
 
 ## General Remarks
