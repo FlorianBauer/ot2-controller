@@ -29,6 +29,9 @@ from sila2lib.sila_server import SiLA2Server
 from Ot2Controller.Ot2Controller_real import Ot2ControllerReal
 from Ot2Controller.gRPC import Ot2Controller_pb2_grpc
 
+SERVER_TYPE: str = "OpentronsOt2Controller"
+SERVER_DESC: str = "A SiLA 2 service enabling the execution of python protocols on an Opentrons 2 liquid handling " \
+                   "robot."
 
 def parse_command_line():
     """
@@ -38,14 +41,11 @@ def parse_command_line():
 
     # Simple arguments for the server identification
     parser.add_argument('-a', '--ip-address', action='store',
-                        default=None, help='IP address of the OT-2 device', required=True)
+                        default=None, help='The IP-address of the OT-2 device to connect to.', required=True)
+    parser.add_argument('-p', '--port', action='store',
+                        default=50064, help='Starts the SiLA server on the given port (default=50064).')
     parser.add_argument('-s', '--server-name', action='store',
-                        default="Ot2Controller", help='start SiLA server with [server-name]')
-    parser.add_argument('-t', '--server-type', action='store',
-                        default="OpentronsOt2Controller", help='start SiLA server with [server-type]')
-    parser.add_argument('-d', '--description', action='store',
-                        default="A SiLA 2 service enabling the execution of python protocols on a Opentrons 2 liquid "
-                                "handler.", help='SiLA server description')
+                        default="Ot2Controller", help='Starts the SiLA server with the given name.')
 
     # Encryption
     parser.add_argument('-X', '--encryption', action='store', default=None,
@@ -79,11 +79,11 @@ if __name__ == '__main__':
 
     args = parse_command_line()
 
-    sila_server = SiLA2Server(name=args.server_name, description=args.description,
-                              server_type=args.server_type, server_uuid=None,
+    sila_server = SiLA2Server(name=args.server_name, description=SERVER_DESC,
+                              server_type=SERVER_TYPE, server_uuid=None,
                               version=__version__,
                               vendor_url="https://github.com/FlorianBauer/ot2-controller",
-                              ip="127.0.0.1", port=50064,
+                              ip="127.0.0.1", port=int(args.port),
                               simulation_mode=False)
 
     # remove the pesky SimulationController
