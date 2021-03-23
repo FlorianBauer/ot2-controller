@@ -191,8 +191,11 @@ class Ot2ControllerReal(Ot2Controller_pb2_grpc.Ot2ControllerServicer):
         logging.debug(f"run '{cmd}'")
         ssh_stdin, ssh_stdout, ssh_stderr = self.ssh.exec_command(cmd)
 
+        for line in ssh_stderr.readlines():
+            print(line, end='')
+
         for line in ssh_stdout.readlines():
-            logging.debug(line)
+            print(line, end='')
 
         run_ret: int = ssh_stdout.channel.recv_exit_status()
         logging.debug("run returned '" + str(run_ret) + "'")
