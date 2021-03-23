@@ -20,6 +20,8 @@ Commands:
 
 ## Server Start-Up
 
+Ensure all installation steps as described in the [REDME](../README.md) were completed before you continue.
+
 1. Turn on the OT-2 (obviously).  
 
 2. Establish a network connection to the OT-2:  
@@ -30,9 +32,10 @@ To start-up the server, the IP-Address of the OT-2 must be given via the `-a` (a
 
 Now, start the server with the actual IP-Address. Ensure the `sila2lib` library is [installed](https://gitlab.com/SiLA2/sila_python/-/tree/feature/silacodegenerator-0.3#installation) and known to the `pyhton3` interpreter.
 ```
+cd path/to/ot2-controller
 # If working with an virtual environment, don't forget to export the environment variables first.
 # source path/to/venv/bin/activate
-python3 -m path/to/ot2-controller/OtController_server.py -a 169.254.92.42
+python3 OtController_server.py -a 169.254.92.42
 ```
 
 The SiLA server should now be available on localhost (`127.0.0.1`) on the default port `50064`.
@@ -79,8 +82,8 @@ form opentrons.types import Point
 
 # The used offsets are defined here. The concret values can be gathered manually or copied from
 # an existing file (e.g. from the *.json file exported from the Opentrons App).
-OFFSET_RIGHT_MOUNT = Point(x=1.24, y=2.4 ,z=-0.6) # offset values in mm
-OFFSET_LEFT_MOUNT = Point(x=-1.67, y=-0.1 ,z=2.0)
+OFFSET_RIGHT_MOUNT = Point(x=1.24, y=2.4, z=-0.6) # offset values in mm
+OFFSET_LEFT_MOUNT = Point(x=-1.67, y=-0.1, z=2.0)
 
 def run(protocol: protocol_api.ProtocolContext):
     # Load tiprack and set the slot location.

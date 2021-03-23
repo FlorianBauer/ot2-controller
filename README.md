@@ -13,24 +13,29 @@ git clone https://gitlab.com/SiLA2/sila_python.git -b feature/silacodegenerator-
 ```
 Follow further with the installation instructions described at the [sila2lib repositroy](https://gitlab.com/SiLA2/sila_python/-/tree/feature/silacodegenerator-0.3#installation).
 
-**2. Clone this git repository:**  
+**2. Clone this git repository:**
 ```
 git clone https://github.com/FlorianBauer/ot2-controller.git
-cd ot-controller
+cd ot2-controller
 ```
 
-**3. (Optional) Set up and source a Python environment:**  
+**3. (Optional) Set up and source a Python environment:**
 ```
 python3 -m venv ./venv
 source venv/bin/activate
 ```
 
-**4. Install dependant Python packages:**  
+**4. Install dependant Python packages:**
 ```
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
-**5. Establish a SSH connection:**  
+**5. Upgrade protobuf (just to be sure):**
+```
+pip install --upgrade protobuf
+```
+
+**6. Establish a SSH connection:**  
 Before the actual installation, a SSH connection to the OT-2 device has to be established.
 This requires to generate a pair of SSH keys, as well as the configuration of the OT-2 device 
 itself. To do this, please follow the steps described in this article:
@@ -63,7 +68,7 @@ server, and they get selected on start-up by default.
 ## Start the Server
 
 Now execute the `Ot2Controller_server.py` script with the corresponding OT-2 device IP (e.g. with 
-`python3 -m /path/to/ot2-controller/OtController_server.py -a 169.254.92.42`).
+`python3 OtController_server.py -a 169.254.92.42`).
 
 The SiLA server should now be available on localhost (`127.0.0.1`) on the port `50064`.
 
