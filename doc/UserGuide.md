@@ -58,8 +58,8 @@ If no connection to the SiLA server could be established, check if the [SSH Keys
 | `-p` | `--port`         | Starts the SiLA server on the given port (default=50064). |
 | `-s` | `--server-name`  | Starts the SiLA server with the given name. |
 | `-X` | `--encryption`   | The name of the private key and certificate file (without extension). |
-| - | `--encryption-key`  | The name of the encryption key (*with* extension). Can be used if key and certificate vary or non-standard file extensions are used. |
-| - | `--encryption-cert` | The name of the encryption certificate (*with* extension). Can be used if key and certificate vary or non-standard file extensions are used. |
+| n/a | `--encryption-key`  | The name of the encryption key (*with* extension). Can be used if key and certificate vary or non-standard file extensions are used. |
+| n/a | `--encryption-cert` | The name of the encryption certificate (*with* extension). Can be used if key and certificate vary or non-standard file extensions are used. |
 | `-v` | `--version`      | Shows the version. |
 | `-h` | `--help`         | Shows this help message and exit. |
 
