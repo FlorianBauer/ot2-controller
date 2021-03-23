@@ -20,7 +20,7 @@ Commands:
 
 ## Server Start-Up
 
-Ensure all installation steps as described in the [REDME](../README.md) were completed before you continue.
+Ensure all installation steps as described in the [README](../README.md) were completed before you continue.
 
 1. Turn on the OT-2 (obviously).  
 
