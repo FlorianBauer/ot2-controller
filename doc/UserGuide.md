@@ -40,9 +40,8 @@ python3 OtController_server.py -a 169.254.92.42
 
 The SiLA server should now be available on localhost (`127.0.0.1`) on the default port `50064`.
 
-Generic SiLA 2 clients to inspect and test the available service(s) can be found here:
-* [sila-orchestrator](https://github.com/FlorianBauer/sila-orchestrator)
-* [SiLA Browser](https://unitelabs.ch/technology/plug-and-play/sila-browser/)
+A universial SiLA 2 client to inspect and test the available service(s) can be found here:
+[sila-orchestrator](https://github.com/FlorianBauer/sila-orchestrator)
 
 To terminate the server, use **[Ctrl]+[c]** or by typing `stop` into the running terminal window.
 
@@ -66,10 +65,7 @@ If no connection to the SiLA server could be established, check if the [SSH Keys
 
 ## Using Protocols
 
-Since the python protocols are executed directly on the robot hardware, the initial calibration 
-steps are omitted. Incorrect positioning of the pipettes may be the consequence. To avoid this, it is possible to set the
-desired calibration offsets manually within the protocol. Therefore, the offset values must be gathered empirically through testing or can be
-extracted from the *.json file exported from the Opentrons App itself (see picture).
+Since the python protocols are executed directly on the robot hardware, the initial calibration steps are omitted. Incorrect positioning of the pipettes may be the consequence. To avoid this, it is possible to set the desired calibration offsets manually within the protocol. Therefore, the offset values must be gathered empirically through testing or can be extracted from the *.json file exported from the Opentrons App itself (see picture).
 
 ![Export OT-2 calibration data](pics/ExportCalibration.png)
 

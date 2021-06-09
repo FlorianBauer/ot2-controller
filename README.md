@@ -1,6 +1,6 @@
 # ot2-controller
 
-A [SiLA 2](https://sila-standard.com/) complaint controller for an Opentrons [OT-2 Liquid Handler](https://opentrons.com/ot-2/).
+A [SiLA 2](https://sila-standard.com/) compliant controller for an Opentrons [OT-2 Liquid Handler](https://opentrons.com/ot-2/).
 For a short function overview, and a description on how to use this software, take a look into the [User Guide](doc/UserGuide.md).
 
 ## Requirements
