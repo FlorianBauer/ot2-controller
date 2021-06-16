@@ -44,8 +44,8 @@ itself. To do this, please follow the steps described in this article:
 
 ## Installation
 
-Use the generated key from step 3 and register it on the client (may require `sudo` privileges).
-```
+Use the generated key from step 6 and register it on the client (may require `sudo` privileges).
+```bash
 ssh-copy-id -i ~/.ssh/ot2_ssh_key `whoami`@`hostname`
 # e.g. sudo ssh-copy-id -i ~/.ssh/ot2_ssh_key username@my_host.org
 ```
