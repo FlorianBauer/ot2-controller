@@ -86,9 +86,6 @@ if __name__ == '__main__':
                               ip="127.0.0.1", port=int(args.port),
                               simulation_mode=False)
 
-    # remove the pesky SimulationController
-    sila_server.SiLAService_feature.implemented_features.pop("org.silastandard/core/SimulationController/v1")
-
     # add the actual OT2-Controller
     ot2_controller = Ot2ControllerReal(device_ip=args.ip_address)
     Ot2Controller_pb2_grpc.add_Ot2ControllerServicer_to_server(
