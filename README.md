@@ -6,16 +6,16 @@ For a short function overview, and a description on how to use this software, ta
 ## Requirements
 
 **1. Install the [sila2lib](https://gitlab.com/SiLA2/sila_python/-/tree/feature/silacodegenerator-0.3) library in version 0.3 or higher:**  
-Ensure the `python3-distutils` package is installed (install with `apt install python3-distutils` if not).
-Checkout the newest version from the `feature/silacodegenerator-0.3` branch.
+Ensure the `python3-distutils` and `python3-pip` packages are installed (install with `sudo apt install <package>` if not).
 ```
-git clone https://gitlab.com/SiLA2/sila_python.git -b feature/silacodegenerator-0.3
+git clone --recursive https://gitlab.com/SiLA2/sila_python
+pip install sila2
 ```
-Follow further with the installation instructions described at the [sila2lib repositroy](https://gitlab.com/SiLA2/sila_python/-/tree/feature/silacodegenerator-0.3#installation).
+Follow further with the installation instructions described at the [sila2lib repositroy](https://gitlab.com/SiLA2/sila_python).
 
 **2. Clone this git repository:**
 ```
-git clone https://github.com/FlorianBauer/ot2-controller.git
+git clone https://github.com/FlorianBauer/ot2-controller
 cd ot2-controller
 ```
 
@@ -27,7 +27,7 @@ source venv/bin/activate
 
 **4. Install dependant Python packages:**
 ```
-pip3 install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 **5. Upgrade protobuf (just to be sure):**
@@ -44,9 +44,9 @@ itself. To do this, please follow the steps described in this article:
 
 ## Installation
 
-Use the generated key from step 6 and register it on the client (may require `sudo` privileges).
+Use the generated key from step 6 and register it on the client.
 ```bash
-ssh-copy-id -i ~/.ssh/ot2_ssh_key `whoami`@`hostname`
+sudo ssh-copy-id -i ~/.ssh/ot2_ssh_key `whoami`@`hostname`
 # e.g. sudo ssh-copy-id -i ~/.ssh/ot2_ssh_key username@my_host.org
 ```
 Ensure the packages `openssh-server` and `openssh-client` are installed. If not, install with 
