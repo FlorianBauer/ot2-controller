@@ -73,10 +73,10 @@ The following example shows how the offset values are used in the protocol:
 
 ```python
 # ...
-form opentrons.types import Point
+from opentrons.types import Point
 # ...
 
-# The used offsets are defined here. The concret values can be gathered manually or copied from
+# The used offsets are defined here. The concrete values can be gathered manually or copied from
 # an existing file (e.g. from the *.json file exported from the Opentrons App).
 OFFSET_RIGHT_MOUNT = Point(x=1.24, y=2.4, z=-0.6) # offset values in mm
 OFFSET_LEFT_MOUNT = Point(x=-1.67, y=-0.1, z=2.0)
@@ -86,7 +86,7 @@ def run(protocol: protocol_api.ProtocolContext):
     tiprack1 = protocol.load_labware('opentrons_96_filtertiprack_200ul', 1)
 
     # Apply the offset.
-    tiprack1.set_callibration(OFFSET_RIGHT_MOUNT)  
+    tiprack1.set_calibration(OFFSET_RIGHT_MOUNT)  
 
     # All other labware affected by the corresponding mount shall be adjusted with `set_callibration` as well.
     # ...
