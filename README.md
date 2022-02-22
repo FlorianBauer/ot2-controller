@@ -57,15 +57,6 @@ _Some additional useful links for troubleshooting:_
 * https://hackersandslackers.com/automate-ssh-scp-python-paramiko/
 * https://askubuntu.com/questions/685890/ssh-connect-t-host-slave-1-port-22-connection-refused
 
-_Optional:_ To add default encryption, generate a self-signed certificate:
-```
-openssl req -x509 -newkey rsa:4096 -keyout sila_server.key -out sila_server.crt -days 365 -subj '/CN=localhost' -nodes
-```
-
-Place the two files `sila_server.crt` and a `sila_server.key` in the same directory as the Python 
-server, and they get selected on start-up by default.
-
-
 ## Start the Server
 
 Now execute the `Ot2Controller_server.py` script with the corresponding OT-2 device IP (e.g. with 
