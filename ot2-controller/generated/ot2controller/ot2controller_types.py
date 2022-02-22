@@ -1,23 +1,11 @@
 from __future__ import annotations
 
+from datetime import datetime
 from typing import NamedTuple
 
 
-class UploadProtocol_Responses(NamedTuple):
-
-    pass
-
-
-class RemoveProtocol_Responses(NamedTuple):
-
-    pass
-
-
-class RunProtocol_Responses(NamedTuple):
-
-    ReturnValue: int
-    """
-    The returned value from the executed protocol. On a simulated execution, only the value 0
-                is indicating a successful simulation.
-            
-    """
+class CameraPicture_Response(NamedTuple):
+    ImageData: bytes
+    """The *.jpg image"""
+    ImageTimestamp: datetime
+    """The timestamp when the image was taken"""

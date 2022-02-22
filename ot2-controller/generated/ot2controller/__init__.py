@@ -3,14 +3,12 @@ from typing import TYPE_CHECKING
 from .ot2controller_base import Ot2ControllerBase
 from .ot2controller_errors import RemoveFileFailed, UploadFileFailed
 from .ot2controller_feature import Ot2ControllerFeature
-from .ot2controller_types import RemoveProtocol_Responses, RunProtocol_Responses, UploadProtocol_Responses
+from .ot2controller_types import CameraPicture_Response
 
 __all__ = [
     "Ot2ControllerBase",
     "Ot2ControllerFeature",
-    "UploadProtocol_Responses",
-    "RemoveProtocol_Responses",
-    "RunProtocol_Responses",
+    "CameraPicture_Response",
     "UploadFileFailed",
     "RemoveFileFailed",
 ]

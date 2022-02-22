@@ -6,7 +6,7 @@ from typing import Any, Dict, List
 from sila2.framework import FullyQualifiedIdentifier
 from sila2.server import FeatureImplementationBase
 
-from .ot2controller_types import RemoveProtocol_Responses, RunProtocol_Responses, UploadProtocol_Responses
+from .ot2controller_types import CameraPicture_Response
 
 
 class Ot2ControllerBase(FeatureImplementationBase, ABC):
@@ -36,7 +36,7 @@ class Ot2ControllerBase(FeatureImplementationBase, ABC):
         pass
 
     @abstractmethod
-    def get_CameraPicture(self, *, metadata: Dict[FullyQualifiedIdentifier, Any]) -> Any:
+    def get_CameraPicture(self, *, metadata: Dict[FullyQualifiedIdentifier, Any]) -> CameraPicture_Response:
         """
         A current picture from the inside of the OT-2 made with the built-in camera.
 
@@ -48,7 +48,7 @@ class Ot2ControllerBase(FeatureImplementationBase, ABC):
     @abstractmethod
     def UploadProtocol(
         self, ProtocolSourcePath: str, *, metadata: Dict[FullyQualifiedIdentifier, Any]
-    ) -> UploadProtocol_Responses:
+    ) -> None:
         """
         Uploads the given Protocol to the "/data/user_storage" directory on the OT-2.
 
@@ -63,7 +63,7 @@ class Ot2ControllerBase(FeatureImplementationBase, ABC):
     @abstractmethod
     def RemoveProtocol(
         self, ProtocolFile: str, *, metadata: Dict[FullyQualifiedIdentifier, Any]
-    ) -> RemoveProtocol_Responses:
+    ) -> None:
         """
         Removes the given Protocol from the "/data/user_storage" directory on the OT-2.
 
@@ -78,7 +78,7 @@ class Ot2ControllerBase(FeatureImplementationBase, ABC):
     @abstractmethod
     def RunProtocol(
         self, ProtocolFile: str, IsSimulating: bool, *, metadata: Dict[FullyQualifiedIdentifier, Any]
-    ) -> RunProtocol_Responses:
+    ) -> int:
         """
         Runs the given Protocol on the OT-2.
 
