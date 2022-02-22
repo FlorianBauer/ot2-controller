@@ -3,19 +3,21 @@ from uuid import UUID
 
 from sila2.server import SilaServer
 
+from . import __version__
 from .feature_implementations.ot2controller_impl import Ot2ControllerImpl
 from .generated.ot2controller import Ot2ControllerFeature
 
 
 class Server(SilaServer):
     def __init__(self, server_uuid: Optional[UUID] = None):
-        # TODO: fill in your server information
         super().__init__(
-            server_name="TODO",
-            server_type="TODO",
-            server_version="0.1",
-            server_description="TODO",
-            server_vendor_url="https://gitlab.com/SiLA2/sila_python",
+            server_name="Ot2Controller",
+            server_type="OpentronsOt2Controller",
+            server_version=__version__,
+            server_description=(
+                "A SiLA 2 service enabling the execution of python protocols on a Opentrons 2 liquid handler."
+            ),
+            server_vendor_url="https://github.com/FlorianBauer/ot2-controller",
             server_uuid=server_uuid,
         )
 

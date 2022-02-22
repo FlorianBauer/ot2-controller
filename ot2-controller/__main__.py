@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 def parse_args():
     parser = ArgumentParser(prog="ot2-controller", description="Start this SiLA 2 server")
     parser.add_argument("-a", "--ip-address", default="127.0.0.1", help="The IP address (default: '127.0.0.1')")
-    parser.add_argument("-p", "--port", type=int, default=50052, help="The port (default: 50052)")
+    parser.add_argument("-p", "--port", type=int, default=50064, help="The port (default: 50052)")
     parser.add_argument("--server-uuid", type=UUID, default=None, help="The server UUID (default: create random UUID)")
     parser.add_argument("--disable-discovery", action="store_true", help="Disable SiLA Server Discovery")
 

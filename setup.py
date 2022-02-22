@@ -2,6 +2,9 @@ from setuptools import find_packages, setup
 
 setup(
     name="ot2-controller",
+    version="0.2.0",
+    author="Florian Bauer",
+    author_email="<florian.bauer.dev@gmail.com>",
     packages=find_packages(),
     install_requires=[
         "opentrons==3.20.1",
