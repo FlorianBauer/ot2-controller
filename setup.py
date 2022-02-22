@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 
 setup(
-    name="ot2-controller",
+    name="ot2_controller",
     version="0.2.0",
     author="Florian Bauer",
     author_email="<florian.bauer.dev@gmail.com>",
