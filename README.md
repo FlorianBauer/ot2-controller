@@ -5,13 +5,14 @@ For a short function overview, and a description on how to use this software, ta
 
 ## Requirements
 
-**1. Install the [sila2lib](https://gitlab.com/SiLA2/sila_python/-/tree/feature/silacodegenerator-0.3) library in version 0.3 or higher:**  
+**1. Install the [sila2lib](https://gitlab.com/SiLA2/legacy/sila_python_20211115/-/tree/feature/silacodegenerator-0.3) library in version 0.3 or higher:**  
 Ensure the `python3-distutils` and `python3-pip` packages are installed (install with `sudo apt install <package>` if not).
 ```
-git clone --recursive https://gitlab.com/SiLA2/sila_python
-pip install sila2
+git clone --recursive https://gitlab.com/SiLA2/legacy/sila_python_20211115
+git -C sila_python_20211115 checkout feature/silacodegenerator-0.3
+pip install sila_python_20211115/sila_library/
 ```
-Follow further with the installation instructions described at the [sila2lib repositroy](https://gitlab.com/SiLA2/sila_python).
+Follow further with the installation instructions described at the [sila2lib repository](https://gitlab.com/SiLA2/legacy/sila_python_20211115).
 
 **2. Clone this git repository:**
 ```
@@ -83,5 +84,5 @@ The SiLA server is currently only able to run on a host computer which has to be
 the OT-2 device via SSH. Since the OT-2 robot itself is also running a Linux OS on its 
 [build-in Raspberry Pi 3+](https://support.opentrons.com/en/articles/2715311-integrating-the-ot-2-with-other-lab-equipment), 
 it may be possible to install the SiLA server and the corresponding 
-[sila_python](https://gitlab.com/SiLA2/sila_python#installation) libraries on to the OT-2 directly. 
+[sila_python](https://gitlab.com/SiLA2/legacy/sila_python_20211115#installation) libraries on to the OT-2 directly. 
 Pull requests and instructions regarding this are gladly welcome.
