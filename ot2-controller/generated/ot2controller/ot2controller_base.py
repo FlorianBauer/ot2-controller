@@ -46,32 +46,22 @@ class Ot2ControllerBase(FeatureImplementationBase, ABC):
         pass
 
     @abstractmethod
-    def UploadProtocol(
-        self, ProtocolSourcePath: str, *, metadata: Dict[FullyQualifiedIdentifier, Any]
-    ) -> None:
+    def UploadProtocol(self, ProtocolSourcePath: str, *, metadata: Dict[FullyQualifiedIdentifier, Any]) -> None:
         """
         Uploads the given Protocol to the "/data/user_storage" directory on the OT-2.
 
-
         :param ProtocolSourcePath: The path to the Protocol to upload.
-
         :param metadata: The SiLA Client Metadata attached to the call
-
         """
         pass
 
     @abstractmethod
-    def RemoveProtocol(
-        self, ProtocolFile: str, *, metadata: Dict[FullyQualifiedIdentifier, Any]
-    ) -> None:
+    def RemoveProtocol(self, ProtocolFile: str, *, metadata: Dict[FullyQualifiedIdentifier, Any]) -> None:
         """
         Removes the given Protocol from the "/data/user_storage" directory on the OT-2.
 
-
         :param ProtocolFile: The file name of the Protocol to remove.
-
         :param metadata: The SiLA Client Metadata attached to the call
-
         """
         pass
 
@@ -82,20 +72,12 @@ class Ot2ControllerBase(FeatureImplementationBase, ABC):
         """
         Runs the given Protocol on the OT-2.
 
-
         :param ProtocolFile: The file name of the Protocol to run.
-
         :param IsSimulating: Defines whether the protocol gets just simulated or actually executed on the device.
-
-
         :param metadata: The SiLA Client Metadata attached to the call
-
         :return:
 
             - ReturnValue: The returned value from the executed protocol. On a simulated execution, only the value 0
                 is indicating a successful simulation.
-
-
-
         """
         pass
