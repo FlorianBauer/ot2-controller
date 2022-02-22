@@ -10,8 +10,11 @@ logger = logging.getLogger(__name__)
 
 def parse_args():
     parser = ArgumentParser(prog="ot2-controller", description="Start this SiLA 2 server")
+
+    parser.add_argument("-o", "--ot2-ip-address", required=True, help="The IP address of the Opentrons OT-2 system")
+
     parser.add_argument("-a", "--ip-address", default="127.0.0.1", help="The IP address (default: '127.0.0.1')")
-    parser.add_argument("-p", "--port", type=int, default=50064, help="The port (default: 50052)")
+    parser.add_argument("-p", "--port", type=int, default=50064, help="The port (default: 50064)")
     parser.add_argument("--server-uuid", type=UUID, default=None, help="The server UUID (default: create random UUID)")
     parser.add_argument("--disable-discovery", action="store_true", help="Disable SiLA Server Discovery")
 
@@ -34,6 +37,7 @@ def parse_args():
 
 def run_server(args):
     # prepare args
+    ot2_ip_address: str = args.ot2_ip_address
     insecure: bool = args.insecure
     cert: Optional[bytes] = open(args.cert_file, "rb").read() if args.cert_file is not None else None
     private_key: Optional[bytes] = (
@@ -53,7 +57,7 @@ def run_server(args):
         raise ValueError("Cannot use --export-ca-file with --insecure")
 
     # run server
-    server = Server(server_uuid=server_uuid)
+    server = Server(ot2_ip_address=ot2_ip_address, server_uuid=server_uuid)
     try:
         if insecure:
             server.start_insecure(address, port, enable_discovery=enable_discovery)

@@ -9,7 +9,7 @@ from .generated.ot2controller import Ot2ControllerFeature
 
 
 class Server(SilaServer):
-    def __init__(self, server_uuid: Optional[UUID] = None):
+    def __init__(self, ot2_ip_address: str, server_uuid: Optional[UUID] = None):
         super().__init__(
             server_name="Ot2Controller",
             server_type="OpentronsOt2Controller",
@@ -21,6 +21,6 @@ class Server(SilaServer):
             server_uuid=server_uuid,
         )
 
-        self.ot2controller = Ot2ControllerImpl()
+        self.ot2controller = Ot2ControllerImpl(device_ip=ot2_ip_address)
 
         self.set_feature_implementation(Ot2ControllerFeature, self.ot2controller)
