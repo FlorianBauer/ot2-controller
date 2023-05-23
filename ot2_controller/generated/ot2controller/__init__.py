@@ -3,12 +3,13 @@ from typing import TYPE_CHECKING
 from .ot2controller_base import Ot2ControllerBase
 from .ot2controller_errors import RemoveFileFailed, UploadFileFailed
 from .ot2controller_feature import Ot2ControllerFeature
-from .ot2controller_types import CameraPicture_Response
+from .ot2controller_types import CameraPicture_Response, CameraMovie_Response
 
 __all__ = [
     "Ot2ControllerBase",
     "Ot2ControllerFeature",
     "CameraPicture_Response",
+    "CameraMovie_Response",
     "UploadFileFailed",
     "RemoveFileFailed",
 ]

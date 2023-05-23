@@ -6,7 +6,7 @@ from typing import Any, Dict, List
 from sila2.framework import FullyQualifiedIdentifier
 from sila2.server import FeatureImplementationBase
 
-from .ot2controller_types import CameraPicture_Response
+from .ot2controller_types import CameraPicture_Response, CameraMovie_Response
 
 
 class Ot2ControllerBase(FeatureImplementationBase, ABC):
@@ -79,5 +79,16 @@ class Ot2ControllerBase(FeatureImplementationBase, ABC):
 
             - ReturnValue: The returned value from the executed protocol. On a simulated execution, only the value 0
                 is indicating a successful simulation.
+        """
+        pass
+
+    @abstractmethod
+    def CameraMovie(self, LengthOfVideo: str, *, metadata: Dict[FullyQualifiedIdentifier, Any]) -> CameraMovie_Response:
+        """
+        A current video from the inside of the OT-2 made with the built-in camera.
+
+        :param lengthOfVideo: length of the video
+        :param metadata: The SiLA Client Metadata attached to the call
+        :return: A current movie from the inside of the OT-2 made with the built-in camera.
         """
         pass
