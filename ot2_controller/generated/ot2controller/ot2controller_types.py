@@ -9,3 +9,9 @@ class CameraPicture_Response(NamedTuple):
     """The *.jpg image"""
     ImageTimestamp: datetime
     """The timestamp when the image was taken"""
+
+class CameraMovie_Response(NamedTuple):
+    VideoData: bytes
+    """The *.mp4 video"""
+    VideoTimestamp: datetime
+    """The timestamp when the video was taken"""

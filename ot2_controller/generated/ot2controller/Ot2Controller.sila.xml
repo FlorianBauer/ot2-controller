@@ -125,6 +125,46 @@
       </DataType>
     </Response>
   </Command>
+  <Command>
+    <Identifier>CameraMovie</Identifier>
+    <DisplayName>Camera Movie</DisplayName>
+    <Description>A current video from the inside of the OT-2 made with the built-in camera.</Description>
+    <Observable>No</Observable>
+    <Parameter>
+      <Identifier>LengthOfVideo</Identifier>
+      <DisplayName>Length Of Video</DisplayName>
+      <Description>Duration of the video, in hours, minutes, seconds.</Description>
+      <DataType>
+        <Basic>Time</Basic>
+      </DataType>
+    </Parameter>
+    <Response>
+      <Identifier>VideoData</Identifier>
+      <DisplayName>Video Data</DisplayName>
+      <Description>The *.mp4 video.</Description>
+      <DataType>
+        <Constrained>
+          <DataType>
+            <Basic>Binary</Basic>
+          </DataType>
+          <Constraints>
+            <ContentType>
+              <Type>video</Type>
+              <Subtype>mp4</Subtype>
+            </ContentType>
+          </Constraints>
+        </Constrained>
+      </DataType>
+    </Response>
+    <Response>
+      <Identifier>VideoTimestamp</Identifier>
+      <DisplayName>Video Timestamp</DisplayName>
+      <Description>The timestamp when the video was taken.</Description>
+      <DataType>
+        <Basic>Timestamp</Basic>
+      </DataType>
+    </Response>
+  </Command>
   <DefinedExecutionError>
     <Identifier>UploadFileFailed</Identifier>
     <DisplayName>Upload File Failed</DisplayName>

@@ -11,7 +11,7 @@ from paramiko.pkey import PKey
 from scp import SCPClient, SCPException
 from sila2.framework import FullyQualifiedIdentifier
 
-from ..generated.ot2controller import CameraPicture_Response, Ot2ControllerBase
+from ..generated.ot2controller import CameraPicture_Response, Ot2ControllerBase, CameraMovie_Response
 
 DEFAULT_SSH_PRIVATE_KEY: str = "~/.ssh/ot2_ssh_key"
 DEVICE_USERNAME: str = "root"
@@ -131,6 +131,30 @@ class Ot2ControllerImpl(Ot2ControllerBase):
             raise ValueError("The simulation of the protocol was not successful.")
 
         return run_ret
+
+    def CameraMovie(self, LengthOfVideo, *, metadata: Dict[FullyQualifiedIdentifier, Any]) -> CameraMovie_Response:
+        time_video = str(LengthOfVideo)[:8]
+        out_video_file: str = "/tmp/tmp_video.mp4"
+        cmd: str = f"ffmpeg -y -video_size 320x240 -i /dev/video0 -t {time_video} {out_video_file}"
+
+        self.__logger.debug(f"run '{cmd}'")
+        ssh_stdin, ssh_stdout, ssh_stderr = self.ssh.exec_command(cmd)
+        run_ret: int = ssh_stdout.channel.recv_exit_status()
+        self.__logger.debug(f"run returned '{str(run_ret)}'")
+
+        scp = SCPClient(self.ssh.get_transport())
+        try:
+            scp.get(out_video_file, "/tmp/tmp_video.mp4", recursive=False)
+            self.__logger.debug(f"Downloaded {out_video_file} to /tmp/tmp_video.mp4")
+        except SCPException as error:
+            self.__logger.error(error)
+            raise
+        finally:
+            scp.close()
+
+        return CameraMovie_Response(
+            VideoData=open("/tmp/tmp_video.mp4", "rb").read(), VideoTimestamp=datetime.now(timezone.utc)
+        )
 
     def __del__(self):
         # Close connection

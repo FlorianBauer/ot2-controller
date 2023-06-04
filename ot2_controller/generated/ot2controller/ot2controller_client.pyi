@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any, Iterable, List, Optional
 
-from ot2controller_types import RemoveProtocol_Responses, RunProtocol_Responses, UploadProtocol_Responses
+from ot2controller_types import RemoveProtocol_Responses, RunProtocol_Responses, UploadProtocol_Responses, CameraMovie_Response
 from sila2.client import ClientMetadataInstance, ClientUnobservableProperty
 
 class Ot2ControllerClient:
@@ -44,5 +44,12 @@ class Ot2ControllerClient:
     ) -> RunProtocol_Responses:
         """
         Runs the given Protocol on the OT-2.
+        """
+        ...
+    def CameraMovie(
+        self, LengthOfVideo: str, *, metadata: Optional[Iterable[ClientMetadataInstance]] = None
+    ) -> CameraMovie_Response:
+        """
+        A current video from the inside of the OT-2 made with the built-in camera.
         """
         ...
