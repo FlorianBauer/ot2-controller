@@ -3,7 +3,7 @@ from argparse import ArgumentParser
 from typing import Optional
 from uuid import UUID
 
-from .server import Server
+from ot2_controller.server import Server
 
 logger = logging.getLogger(__name__)
 
