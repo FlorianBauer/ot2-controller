@@ -8,6 +8,8 @@ venv/
 env/
 __pycache__/
 *.pyc
+[Bb]uild/
+ot2_controller.egg-info/
 
 # PyCharm / InteliJ projects folder
 .idea/
